@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/04 19:51:12 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/04 21:15:21 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,14 @@
 #include "libft.h"
 #include <stdio.h>
 
-typedef struct	s_op
+typedef struct			s_label
+{
+	char			*label;
+	int				address;
+	struct s_label	*next;
+}						t_label;
+
+typedef struct			s_op
 {
 	char	*mneumonic;
 	int		num_args;
@@ -27,6 +34,14 @@ typedef struct	s_op
 	char	*description;
 	int		encoding_byte;
 	int		carry;
-}				t_op;
+}						t_op;
+
+typedef struct	s_asm
+{
+	int		output_fd;
+	int		input_fd;
+	t_label	*labels;
+
+}				t_asm;
 
 #endif
