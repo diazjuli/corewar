@@ -6,30 +6,24 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/05 18:33:19 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/05 21:04:56 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "assembler.h"
 
-int		lexer(char *str)
+int		get_op(char *mnemonic)
 {
-    t_vars	ob;
-	  int		fd;
-    if (argc != 2)
-        printf("incorrect number of arguments\n");
-    else
-    {
-        if (lexer(argv[1], &ob) == -1)
-            return(printf("lexical error in the input file\n"));
-		if (parser(argv[1], &ob) == -1)
-			return(printf("parser/label error in the input file\n"));
-        fd = open("new_file", O_WRONLY);
-        generator(fd, &ob);
-        close(fd);
-    }
-    return (0);
-	fd = open(str, O_RDONLY);
+	int i;
+
+	i = 0;
+	while (i < 17)
+	{
+		if (ft_strcmp(op_tab[i], mnemonic) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
 }
 
 int		main(int argc, char **argv)
@@ -41,12 +35,17 @@ int		main(int argc, char **argv)
 		printf("incorrect number of arguments\n");
 	else
 	{
-		if (lexer(argv[1]) == -1)
+		fd = open(argv[1], O_RDONLY);
+		if (fd == -1 || lexer(&ob, fd) == -1)
 			return(printf("error in the input file\n"));
-		ob.labels = get_labels(&ob);
-		fd = open("new_file", O_WRONLY);
-		write_bits(&ob, fd);
+		fd = open(argv[1], O_RDONLY);
+		get_label_address(&ob,fd);
+		fd = open(argv[1], O_RDONLY);
+		ob.output_fd = open("new_file", O_WRONLY);
+		if (file_generator(&ob, fd) == -1)
+			return (-1);
 		close(fd);
+		close(ob.output_fd);
 	}
 	return (0);
 }

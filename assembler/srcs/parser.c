@@ -6,13 +6,13 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/05 18:30:47 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/05 21:04:32 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "assembler.h"
 
-int		parser(char *filename, t_vars *ob)  //2nd pass, while counting get label addresses and check lex-labels
+int		get_label_address(char *filename, t_vars *ob)  //2nd pass, while counting get label addresses and check lex-labels
 {
 	int		fd;
 	int		counter;
