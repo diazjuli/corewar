@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/05 18:21:37 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/05 18:34:57 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct			s_param
 	int					value;
 	int					type;
 	int					index;
-	int					size;   //?
+	int					size;   //neccesary?
 	struct	s_param		*next;
 }						t_param;
 
