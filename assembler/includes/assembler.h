@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/04 21:15:21 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/05 18:21:37 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,51 @@
 #include "libft.h"
 #include <stdio.h>
 
-typedef struct			s_label
-{
-	char			*label;
-	int				address;
-	struct s_label	*next;
-}						t_label;
-
 typedef struct			s_op
 {
-	char	*mneumonic;
-	int		num_args;
-	int		arg_types[3];
-	int		op_code;
-	int		num_cycles;
-	char	*description;
-	int		encoding_byte;
-	int		carry;
+	char				*mnemonic;
+	int					num_args;
+	int					arg_types[3];
+	int					op_code;
+	int					num_cycles;
+	char				*description;
+	int					encoding_byte;   //boolean
+	int					carry;
 }						t_op;
 
-typedef struct	s_asm
+typedef struct			s_label
 {
-	int		output_fd;
-	int		input_fd;
-	t_label	*labels;
+	char				*label;
+	int					address;
+	struct s_label		*next;
+}						t_label;
 
-}				t_asm;
+typedef struct			s_param
+{
+	int					value;
+	int					type;
+	int					index;
+	int					size;   //?
+	struct	s_param		*next;
+}						t_param;
+
+typedef struct			s_ins
+{
+	int					op_code;
+	int					arg_types[3];
+	int					encoding_value;
+	t_param				*params;
+	struct s_ins		*next;
+}						t_ins;	
+
+
+typedef struct			s_vars
+{
+	int					output_fd;
+	char				*player_name;
+	char				*comment;
+	t_inst				*ins_ls;
+	t_label				*labels;
+}						t_vars;
 
 #endif
