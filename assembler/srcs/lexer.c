@@ -12,54 +12,45 @@
 
 #include "assembler.h"
 
-int		check_name(char *line, t_vars *ob)
+int		check_name(char **inst, t_vars *ob)
 {
-	if (line[1] == 'n')
-		check_name(line, ob);    //check and get name into ob
-	else if (line[1] == 'c')
-		check_comment(line, ob) //check and get comment into ob
+	if (strcmp(".name", inst[0]) == 0)
+		ob->name = inst[1];
+	if (strcmp(".comment", inst[0] == 0)
+		ob->comment = inst[1];
+	else
+		return (-1);
 }
 
-int		get_label(char *label, t_vars *ob)
+int		get_label(char *lbl, t_vars *ob)
 {
-	int		i;
+	t_label	*tmp;
+	
+	tmp = op->labels->label;
+	while (ob->labels->label)
+	{
+		if (strcmp(lbl, ob->labels->label) == 0)
+			tmp = ob->labels->next;
+		else
+			return (-1);
+	}
+	ob->labels->label = lbl;
+	ob->bl_label = 1;
+	return (0);
+}
+
+int	free_split(char **inst, static int numwords)
+{
+	int	i;
 
 	i = 0;
-	if (line[])
-
-}
-
-
-int		check_register(char *r_arg)
-{
-	int		reg_num;
-
-	reg_num = ft_atoi([i++]);
-	if (reg_num > 16)
+	while (i < numwords)
 	{
-		printf("incorrect register number\n");
-		exit (0);
+		free(inst[i])
+		i++;
 	}
-}
-
-int		check_args(int num_args, int *arg_types, char **inst, t_vars *ob)
-{
-	int		i;
-
-	i = 0;
-	while (i < num_args)
-	{
-		if (line[i][0] == 'r' && ob->)
-		{
-			check_register(line[i++]);
-		}
-		else if (line[i][0] == '%')
-			check_direct(line[i++]);
-		else if (line[i][0] >= '0' && 0line[i][0] <= '9')
-			check_indirect(line[i++]);
-	}
-	return (1);
-}
+	return (0);
+}	
 
 int		lexer(t_vars *ob, int fd) //1st pass check lexical errors 
 {
@@ -70,20 +61,21 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 	{
 		if (line[0] == '#')
 			continue;
-		if (line[0] == '.' && check_name(line, ob) != -1)
+		inst = ft_strplit(line, ' ');
+		if (line[0] == '.' && check_name(inst, ob) != -1)
 			return (-1);
 		else
 		{
-			inst = ft_strplit(line, ' ');
 			if (ft_strchr(inst[0], ":") && get_label(inst[0], ob) == -1)
 				return (-1);
-			ob->op_code = get_op(inst[ob->label]);
+			ob->op_code = get_op(inst[ob->bl_label]);
 			if (ob->op_code == -1 || check_args(op_tab[ob->op_code][1],
 						op_tab[ob->op_code][2],inst ,ob) == -1)
 				return (-1);
+			ob->bl_label = 0;
 		}
+		free_split(inst, num_words(line, ' '));
 		free(line);
-		free_split(inst);
 	}
 	close(fd);
 	return (1);
