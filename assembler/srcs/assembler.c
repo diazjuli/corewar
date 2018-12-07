@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/05 21:04:56 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/06 20:15:40 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		main(int argc, char **argv)
 			return(printf("error in the input file\n"));
 		fd = open(argv[1], O_RDONLY);
 		get_label_address(&ob,fd);
+		close(fd);
 		fd = open(argv[1], O_RDONLY);
 		ob.output_fd = open("new_file", O_WRONLY);
 		if (file_generator(&ob, fd) == -1)
