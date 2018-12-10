@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/10 13:38:54 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 15:48:31 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct			s_op
 	int					encoding_byte;   //boolean
 	int					carry;
 }						t_op;
+
+extern t_op		op_tab[17];
 
 typedef struct			s_label
 {

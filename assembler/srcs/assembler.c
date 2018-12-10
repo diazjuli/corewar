@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/06 20:15:40 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 15:42:21 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		get_op(char *mnemonic)
 
 int		main(int argc, char **argv)
 {
-	t_asm	ob;
+	t_vars	ob;
 	int		fd;
 
 	if (argc != 2)

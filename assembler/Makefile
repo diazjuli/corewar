@@ -6,7 +6,7 @@
 #    By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/15 19:22:08 by jdiaz             #+#    #+#              #
-#    Updated: 2018/12/05 20:40:30 by jdiaz            ###   ########.fr        #
+#    Updated: 2018/12/10 15:43:59 by jdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ LIBFT_PATH = ../libft/
 FLAGS = -Wall -Werror -Wextra
 INC = -I ./includes/ -I ./$(LIBFT_PATH)includes/
 
-ASM_SRC = srcs/assembler.c srcs/op.c
+ASM_SRC = srcs/check_args.c srcs/lexer.c srcs/assembler.c srcs/op.c
 		  
-ASM_OBJ = assembler.o op.o
+ASM_OBJ = check_args.o assembler.o op.o lexer.o
 
 all: $(NAME)
 
