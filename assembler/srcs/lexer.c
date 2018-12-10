@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/05 21:04:54 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 13:26:56 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	free_split(char **inst, static int numwords)
 		free(inst[i])
 		i++;
 	}
+	free(inst);
 	return (0);
 }	
 

@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:52 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/05 21:04:24 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 13:38:00 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		check_register(char *reg)
 	i = 1;
 	while (reg[i])
 	{
-		if (reg[i] >= '0' && reg[i] <= '9' || reg[i] == ',')
+		if (reg[i] >= '0' && reg[i] <= '9' || reg[ft_strlen(reg) - 1] == ',')
 			i++;
 		else
 		{
@@ -48,9 +48,9 @@ int		check_direct(char *direct)   //can be %:alphanumeric or %numeric
 	}
 	else
 	{
-		while (reg[i]) //not managing comma in between the word
+		while (direct[i]) //not managing comma in between the word
 		{
-			if (reg[i] >= '0' && reg[i] <= '9' || reg[i] == ',')
+			if (direct[i] >= '0' && direct[i] <= '9' || direct[ft_strlen(direct) - 1] == ',')
 				i++;
 			else
 			{
@@ -63,14 +63,14 @@ int		check_direct(char *direct)   //can be %:alphanumeric or %numeric
 }
 
 
-int	check_indirect(char *str)
+int	check_indirect(char *ind)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (ind[i])
 	{
-		if (reg[i] >= '0' && reg[i] <= '9' || reg[i] == ',')
+		if (ind[i] >= '0' && ind[i] <= '9' || ind[ft_strlen(ind) - 1] == ',')
 			i++;
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/05 21:04:50 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 13:38:54 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct			s_vars
 	char				*player_name;
 	char				*comment;
 	t_label				*labels;
-	int					label;
+	int					bl_label;
 	int					op_code;
 	//t_inst				*ins_ls;
 }						t_vars;
