@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 19:37:05 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 20:49:07 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int		get_op(char *mnemonic)
 	return (-1);
 }
 
-int	free_split(char **inst, int numwords)
+int	free_split(char **inst)
 {
 	int	i;
 
 	i = 0;
-	while (i < numwords)
+	while (inst[i])
 	{
 		free(inst[i]);
 		i++;
