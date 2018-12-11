@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2018/12/10 20:10:14 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 21:00:35 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ t_op    op_tab[17] =
 
 int		check_index(int op_code)
 {
-	int		intarr[9];
-	int		i;
+	static int		intarr[9] = {2, 3, 9, 10, 11, 12, 13, 14, 15};
+	int				i;
 
-	intarr = {2, 3, 9, 10, 11, 12, 13, 14, 15}
 	i = 0;
 	while (i < 9)
 	{
-		if (op_code = intarr[i])
-			return (0);
+		if (op_code == intarr[i])
+			return (1);
 		i++;
 	}
 	return (-1);
