@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 18:30:31 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 20:44:20 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int		get_label(char *lbl, t_vars *ob)
 	t_label	*tmp;
 	int		i;
 	
-	tmp = ob->labels;
+	if (ob->labels != NULL)
+		tmp = ob->labels;
 	i = 0;
-	while (ob->labels->label)
+	while (tmp && tmp->next)
 	{
-		if (strcmp(lbl, ob->labels->label) == 0)
-			tmp = ob->labels->next;
-		else
+		if (ft_strcmp(lbl, ob->labels->label) == 0)
 			return (-1);
+		tmp = ob->labels->next;
 	}
 	while (lbl[i])
 	{
@@ -49,24 +49,21 @@ int		get_label(char *lbl, t_vars *ob)
 		else
 			return (-1);
 	}
-	ob->labels->label = lbl;
+	tmp->next = ft_create_elem(lbl)
 	ob->bl_label = 1;
 	return (0);
 }
 
-int	free_split(char **inst, int numwords)
+t_label		*ft_create_elem(char *lbl)
 {
-	int	i;
+	t_label	*elem;
 
-	i = 0;
-	while (i < numwords)
-	{
-		free(inst[i]);
-		i++;
-	}
-	free(inst);
-	return (0);
-}	
+	elem = (t_label*)malloc(sizeof(t_label));
+	elem->label = lbl;
+	elem->address = -1;
+	elem->next = NULL;
+	return (elem);
+}
 
 int		lexer(t_vars *ob, int fd) //1st pass check lexical errors 
 {
@@ -85,11 +82,12 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob) == -1)
 				return (-1);
 			ob->op_code = get_op(inst[ob->bl_label]);
-			if (ob->op_code == -1 || check_args(op_tab[ob->op_code].num_args, op_tab[ob->op_code].arg_types, inst, ob) == -1)
+			if (ob->op_code == -1 || check_args(op_tab[ob->op_code].num_args,
+					   	op_tab[ob->op_code].arg_types, inst, ob) == -1)
 				return (-1);
 			ob->bl_label = 0;
 		}
-		free_split(inst, ft_num_words(line));
+		free_split(inst)
 		free(line);
 	}
 	close(fd);
