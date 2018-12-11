@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 15:42:21 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 18:23:05 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		get_op(char *mnemonic)
 	i = 0;
 	while (i < 17)
 	{
-		if (ft_strcmp(op_tab[i], mnemonic) == 0)
+		if (ft_strcmp(op_tab[i].mnemonic, mnemonic) == 0)
 			return (i);
 		i++;
 	}

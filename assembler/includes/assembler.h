@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/10 15:48:31 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 16:30:55 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,25 @@ typedef struct			s_vars
 	int					op_code;
 	//t_inst				*ins_ls;
 }						t_vars;
+/*assembler*/
+int		get_op(char *mnemonic);
+/*lexer*/
+int		check_name(char **inst, t_vars *ob, char *line);
+int		get_label(char *lbl, t_vars *ob);
+int		free_split(char **inst, int numwords);
+int		lexer(t_vars *ob, int fd); //1st pass check lexical errors 
+/*check_args*/
+int		check_args(int num_args, int *arg_types, char **inst, t_vars *ob);
+int		check_indirect(char *ind);
+int		check_direct(char *direct);   //can be %:alphanumeric or %numeric
+int		check_register(char *reg);
+/*parser*/
+int		count_params(int op_code, int num_args, int *arg_types, char *args);
+int		get_label_address(t_vars *ob, int fd);
+/*generator*/
+int		print_name(t_vars *ob, char **inst, int counter);
+int		print_encoding(t_vars *ob, int op_code, char **params, int num_params);
+int		print_inst(t_vars *ob, char **inst, int counter);
+int		generator(t_vars *ob, int fd);
 
 #endif
