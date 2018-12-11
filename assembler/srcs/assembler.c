@@ -57,7 +57,7 @@ int		main(int argc, char **argv)
 		close(fd);
 		fd = open(argv[1], O_RDONLY);
 		ob.output_fd = open("new_file", O_WRONLY);
-		if (file_generator(&ob, fd) == -1)
+		if (generator(&ob, fd) == -1)
 			return (-1);
 		close(fd);
 		close(ob.output_fd);

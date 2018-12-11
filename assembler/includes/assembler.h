@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/10 16:30:55 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 20:38:35 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		get_op(char *mnemonic);
 /*lexer*/
 int		check_name(char **inst, t_vars *ob, char *line);
 int		get_label(char *lbl, t_vars *ob);
-int		free_split(char **inst, int numwords);
+int		free_split(char **inst);
 int		lexer(t_vars *ob, int fd); //1st pass check lexical errors 
 /*check_args*/
 int		check_args(int num_args, int *arg_types, char **inst, t_vars *ob);

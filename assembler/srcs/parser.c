@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/06 19:58:19 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 19:38:58 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,23 @@ int		count_params(int op_code, int num_args, int *arg_types, char *args)
 	return (mem);
 }
 
+int		set_address(char *label, int address, t_vars *ob)
+{
+	t_label *tmp;
+
+	tmp = ob->labels;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->label, label) == 0)
+		{
+			tmp->address = address;
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (-1);
+}
+
 /*
 ** Second pass through the file. Will check validity of all labels used and 
 ** get addresses for each label. Uses counter to keep track of current address
@@ -53,7 +70,7 @@ int		get_label_address(t_vars *ob, int fd)
 			inst = ft_strsplit(line, ' ');
 			if (ft_strchr(inst[0], LABEL_CHAR))
 			{
-				set_address(inst[0], counter);
+				set_address(inst[0], counter, ob);
 				ob->label = 1;
 			}
 			ob->op_code = get_op(inst[ob->label]);
