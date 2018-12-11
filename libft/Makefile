@@ -6,7 +6,7 @@
 #    By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/10 16:01:51 by jdiaz             #+#    #+#              #
-#    Updated: 2018/12/04 20:30:57 by jdiaz            ###   ########.fr        #
+#    Updated: 2018/12/10 19:06:18 by jdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,11 +89,11 @@ $(NAME):
 	@echo "\033[32mBuilt libft library.\033[0m"
 
 clean:
-	@/bin/rm $(OBJ)
+	@/bin/rm -f $(OBJ)
 	@echo "\033[32mCleaned up libft object files.\033[0m"
 
 fclean: clean
-	@/bin/rm $(NAME)
+	@/bin/rm -f $(NAME)
 	@echo "\033[32mRemoved library.\033[0m"
 
 re: fclean all

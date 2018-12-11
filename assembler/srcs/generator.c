@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/06 21:33:31 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 20:33:45 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,19 @@
 
 int		print_name(t_vars *ob, char **inst, int counter)
 {
-	//print either name or comment;
+	int	length;
+	int i;
+
+	i = 0;
+	length = ft_strcmp(inst[0], NAME_CMD_STRING) == 0 ?
+		PROG_NAME_LENGTH : COMMENT_LENGTH;
+	i = ft_strlen(inst[1]);
+	ft_putstr_fd(inst[1], ob->output_fd);
+	while (i < length)
+	{
+		ft_putchar_fd(0, ob->output_fd);
+		i++;
+	}
 	return (counter);
 }
 
@@ -52,7 +64,7 @@ int		print_encoding(t_vars *ob, int op_code, char **params, int num_params)
 			i++;
 		}
 	}
-	print_bits(byte);
+	ft_putchar_fd(byte, ob->output_fd);
 	return (counter);
 }
 
