@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 21:07:24 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 21:26:45 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_label		*ft_create_elem(char *lbl)
 	t_label	*elem;
 
 	elem = (t_label*)malloc(sizeof(t_label));
-	elem->label = lbl;
+	elem->label = ft_strdup(lbl);
 	elem->address = -1;
 	elem->next = NULL;
 	return (elem);
