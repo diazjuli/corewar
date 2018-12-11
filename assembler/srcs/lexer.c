@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 19:52:26 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 20:44:20 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int		get_label(char *lbl, t_vars *ob)
 	t_label	*tmp;
 	int		i;
 	
-	tmp = ob->labels;
+	if (ob->labels != NULL)
+		tmp = ob->labels;
 	i = 0;
 	while (tmp && tmp->next)
 	{
@@ -59,7 +60,8 @@ t_label		*ft_create_elem(char *lbl)
 
 	elem = (t_label*)malloc(sizeof(t_label));
 	elem->label = lbl;
-	elem->address = NULL;
+	elem->address = -1;
+	elem->next = NULL;
 	return (elem);
 }
 
@@ -85,7 +87,7 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 				return (-1);
 			ob->bl_label = 0;
 		}
-		free_split(inst, ft_num_words(line));
+		free_split(inst)
 		free(line);
 	}
 	close(fd);
