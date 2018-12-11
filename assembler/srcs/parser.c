@@ -6,13 +6,13 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 19:38:58 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 21:19:29 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "assembler.h"
 
-int		count_params(int op_code, int num_args, int *arg_types, char *args)
+int		count_params(int op_code, int num_args, char *args)
 {
 	int	mem;
 	int i;
@@ -25,7 +25,7 @@ int		count_params(int op_code, int num_args, int *arg_types, char *args)
 	{
 		if (split[i][0] == 'r')
 			mem++;
-		else if (split[i][0] == DIRECT_CHAR)
+		else if (split[i][0] == DIRECT_CHAR && check_index(op_code) != 1)
 			mem += DIR_SIZE;
 		else
 			mem += IND_SIZE;
@@ -61,22 +61,22 @@ int		get_label_address(t_vars *ob, int fd)
 	char	*line;
 	char	**inst;
 
-	counter = 0;
+	counter = 2176;
 	while ((get_next_line(fd, &line) > 0))
 	{
-		ob->label = 0;
+		ob->labels = 0;
 		if (line[0] != COMMENT_CHAR && line[0] != '.' && ft_strcmp(line, "\n"))
 		{
 			inst = ft_strsplit(line, ' ');
 			if (ft_strchr(inst[0], LABEL_CHAR))
 			{
 				set_address(inst[0], counter, ob);
-				ob->label = 1;
+				ob->bl_label = 1;
 			}
-			ob->op_code = get_op(inst[ob->label]);
+			ob->op_code = get_op(inst[ob->bl_label]);
 			counter += 1 + op_tab[ob->op_code].encoding_byte;
-			count += count_params(ob->op_code, op_tab[ob->op_code].num_args,
-					op_tab[ob->op_code].arg_types, inst[ob->label + 1]);
+			counter += count_params(ob->op_code, op_tab[ob->op_code].num_args,
+					inst[ob->bl_label + 1]);
 			free_split(inst);
 		}
 		free(line);
