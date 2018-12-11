@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 18:23:05 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 20:33:54 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		main(int argc, char **argv)
 		close(fd);
 		fd = open(argv[1], O_RDONLY);
 		ob.output_fd = open("new_file", O_WRONLY);
-		if (file_generator(&ob, fd) == -1)
+		if (generator(&ob, fd) == -1)
 			return (-1);
 		close(fd);
 		close(ob.output_fd);
