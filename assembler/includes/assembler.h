@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/10 21:07:27 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 22:32:18 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ int		print_inst(t_vars *ob, char **inst, int counter);
 int		generator(t_vars *ob, int fd);
 int		power_of2(int exp);
 int		check_index(int op_code);
+int		print_direct(char *param, t_vars *ob, int begin_address);
+int		print_indirect(char *param, t_vars *ob, int begin_address);
 
 #endif
