@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/10 20:38:35 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/10 21:18:41 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,14 @@ int		check_indirect(char *ind);
 int		check_direct(char *direct);   //can be %:alphanumeric or %numeric
 int		check_register(char *reg);
 /*parser*/
-int		count_params(int op_code, int num_args, int *arg_types, char *args);
+int		count_params(int op_code, int num_args, char *args);
 int		get_label_address(t_vars *ob, int fd);
 /*generator*/
-int		print_name(t_vars *ob, char **inst, int counter);
+int		print_name(t_vars *ob, char **inst);
 int		print_encoding(t_vars *ob, int op_code, char **params, int num_params);
 int		print_inst(t_vars *ob, char **inst, int counter);
 int		generator(t_vars *ob, int fd);
+int		power_of2(int exp);
+int		check_index(int op_code);
 
 #endif
