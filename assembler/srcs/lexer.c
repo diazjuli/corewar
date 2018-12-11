@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 15:30:41 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/10 18:30:31 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 int		check_name(char **inst, t_vars *ob, char *line)
 {
 	if (strcmp(NAME_CMD_STRING, inst[0]) == 0 && ft_strlen(line) <= PROG_NAME_LENGTH)
-		ob->name = inst[1];
-	if (strcmp(COMMENT_CMD_STRING, inst[0] == 0 && ft_strlen(line) <= COMMENT_LENGTH))
+	{
+		ob->player_name = inst[1];
+		return (0);
+	}
+	if (strcmp(COMMENT_CMD_STRING, inst[0]) == 0 && ft_strlen(line) <= COMMENT_LENGTH)
+	{
 		ob->comment = inst[1];
+		return (0);
+	}
 	else
 		return (-1);
 }
@@ -27,7 +33,7 @@ int		get_label(char *lbl, t_vars *ob)
 	t_label	*tmp;
 	int		i;
 	
-	tmp = op->labels->label;
+	tmp = ob->labels;
 	i = 0;
 	while (ob->labels->label)
 	{
@@ -55,7 +61,7 @@ int	free_split(char **inst, int numwords)
 	i = 0;
 	while (i < numwords)
 	{
-		free(inst[i])
+		free(inst[i]);
 		i++;
 	}
 	free(inst);
@@ -71,7 +77,7 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 	{
 		if (line[0] == COMMENT_CHAR) 
 			continue;
-		inst = ft_strplit(line, ' ');
+		inst = ft_strsplit(line, ' ');
 		if (line[0] == '.' && check_name(inst, ob, line) != -1)
 			return (-1);
 		else
@@ -79,8 +85,7 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob) == -1)
 				return (-1);
 			ob->op_code = get_op(inst[ob->bl_label]);
-			if (ob->op_code == -1 || check_args(op_tab[ob->op_code][1],
-						op_tab[ob->op_code][2],inst ,ob) == -1)
+			if (ob->op_code == -1 || check_args(op_tab[ob->op_code].num_args, op_tab[ob->op_code].arg_types, inst, ob) == -1)
 				return (-1);
 			ob->bl_label = 0;
 		}
