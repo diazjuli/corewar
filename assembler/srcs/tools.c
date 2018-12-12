@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 21:08:10 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/11 19:53:52 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 21:14:40 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <assembler.h>
+#include "../includes/assembler.h"
 
 int		all_whitespace(char *line)
 {
@@ -90,7 +90,7 @@ int		print_indirect(char *param, t_vars *ob, int begin_address)
 	if (*(param + 1) == LABEL_CHAR)
 	{
 		num = get_address(param + 2, ob);
-		num = begin_address - num;
+		num = num - begin_address;
 	}
 	else
 		num = ft_atoi(param + 1);

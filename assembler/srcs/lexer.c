@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 19:33:54 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/11 20:54:40 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		get_label(char *lbl, t_vars *ob)
 {
 	t_label	*tmp;
 	int		i;
+	t_label	*elem;
 	
 	tmp = ob->labels;
 	i = 0;
@@ -60,8 +61,11 @@ int		get_label(char *lbl, t_vars *ob)
 		else
 			return (-1);
 	}
+	elem = ft_create_elem(lbl);
+	if (ob->labels == NULL)
+		ob->labels = elem;
 	if (tmp != NULL)
-		tmp->next = ft_create_elem(lbl);
+		tmp->next = elem;
 	ob->bl_label = 1;
 	return (0);
 }
