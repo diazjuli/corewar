@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/11 17:20:06 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/11 17:31:08 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		check_indirect(char *ind);
 int		check_direct(char *direct);   //can be %:alphanumeric or %numeric
 int		check_register(char *reg);
 /*parser*/
-int		count_params(int op_code, int num_args, char *args);
+int		count_params(int op_code, int num_args, char **inst, int bl);
 int		get_label_address(t_vars *ob, int fd);
 /*generator*/
 int		print_name(t_vars *ob, char **inst);
