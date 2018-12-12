@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 19:11:09 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 19:50:30 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int		generator(t_vars *ob, int fd)
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
-		if (!all_whitespaces(line))
+		if (!all_whitespace(line))
 		{
 			inst = ft_strsplit(line, " ,");
 			if (ft_strcmp(inst[0], NAME_CMD_STRING) == 0 || 
@@ -135,7 +135,7 @@ int		generator(t_vars *ob, int fd)
 			{
 				if ((counter = print_inst(ob, inst, counter)) == -1)
 					return (-1);
-				free_split(split);
+				free_split(inst);
 			}
 		}	
 		free(line);

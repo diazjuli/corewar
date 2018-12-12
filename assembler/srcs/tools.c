@@ -6,11 +6,22 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 21:08:10 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/10 22:41:08 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 19:53:52 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <assembler.h>
+
+int		all_whitespace(char *line)
+{
+	while(*line)
+	{
+		if (*line != ' ' && *line != '\t')
+			return (0);
+		line++;
+	}
+	return (1);
+}
 
 int		power_of2(int exp)
 {
