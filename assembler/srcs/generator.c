@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 19:50:30 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 20:36:05 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int		print_name(t_vars *ob, char **inst, char *line)
 
 	i = 0;
 	length = ft_strcmp(inst[0], NAME_CMD_STRING) == 0 ?
-		PROG_NAME_LENGTH : COMMENT_LENGTH;
+		PROG_NAME_LENGTH + 5: COMMENT_LENGTH + 8;
 	free_split(inst);
 	inst = ft_strsplit(line, "\"\"");
 	i = ft_strlen(inst[1]);
 	ft_putstr_fd(inst[1], ob->output_fd);
-	while (i < length)
+	while (i <= length)
 	{
 		ft_putchar_fd(0, ob->output_fd);
 		i++;
@@ -100,7 +100,7 @@ int		print_inst(t_vars *ob, char **inst, int counter)
 	if (ft_strchr(inst[0], LABEL_CHAR))
 		ob->bl_label = 1;
 	ob->op_code = get_op(inst[ob->bl_label]);
-	ft_putchar_fd(ob->op_code, ob->output_fd);
+	ft_putchar_fd(ob->op_code + 1, ob->output_fd);
 	counter++;
 	counter += print_encoding(ob, ob->op_code, inst,
 			op_tab[ob->op_code].num_args);
@@ -121,7 +121,7 @@ int		generator(t_vars *ob, int fd)
 	char	*line;
 	char	**inst;
 
-	counter = 2176;
+	counter = 2189;
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
