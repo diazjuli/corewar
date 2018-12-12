@@ -6,11 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2018/12/11 18:42:06 by jdiaz            ###   ########.fr       */
-=======
-/*   Updated: 2018/12/11 18:59:17 by jcruz-y-         ###   ########.fr       */
->>>>>>> 3b83975628b0bca310f9e9922b590616ba0b4b6d
+/*   Updated: 2018/12/11 19:58:09 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +21,13 @@ int		count_params(int op_code, int num_args, char **inst, int bl)
 	mem = 0;
 	while (i < num_args + 1 + bl)
 	{
-		if (inst[il][0] == 'r')
+		if (inst[i][0] == 'r')
 			mem++;
 		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) != 1)
 			mem += DIR_SIZE;
 		else
 			mem += IND_SIZE;
+		i++;
 	}
 	return (mem);
 }
