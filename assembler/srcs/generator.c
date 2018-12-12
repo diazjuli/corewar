@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 22:34:16 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 17:21:46 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,36 @@ int		print_name(t_vars *ob, char **inst)
 	return (1);
 }
 
-int		print_params(t_vars *ob, char **params, int op_code, int begin_address)
+int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
 {
 	int	counter;
+	int i;
 
+	i = ob->bl_label + 1;
 	counter = 0;
-	while (*params != NULL)
+	while (inst[i] != NULL)
 	{
-		if (params[0][0] == 'r')
+		if (inst[i][0] == 'r')
 		{
 			counter++;
-			ft_putchar_fd(ft_atoi(*(params + 1)), ob->output_fd);
+			ft_putchar_fd(ft_atoi(inst[i] + 1), ob->output_fd);
 		}
-		else if (params[0][0] == DIRECT_CHAR && check_index(op_code) == -1)
+		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) == -1)
 		{
 			counter += 4;
-			print_direct(params[0], ob, begin_address);
+			print_direct(inst[i], ob, begin_address);
 		}
 		else
 		{
 			counter += 2;
-			print_indirect(params[0], ob, begin_address);
+			print_indirect(inst[i], ob, begin_address);
 		}
-		params++;
+		i++;
 	}
 	return (counter);
 }
 
-int		print_encoding(t_vars *ob, int op_code, char **params, int num_params)
+int		print_encoding(t_vars *ob, int op_code, char **inst, int num_params)
 {
 	int counter;
 	int	byte;
@@ -71,9 +73,9 @@ int		print_encoding(t_vars *ob, int op_code, char **params, int num_params)
 		counter++;
 		while (i < num_params)
 		{
-			if (params[i][0] == 'r')
+			if (inst[i + 1 + ob->bl_label][0] == 'r')
 				byte = byte | power_of2(6 - 2 * i);
-			else if (params[i][0] == DIRECT_CHAR)
+			else if (inst[i + 1 + ob->bl_label][0] == DIRECT_CHAR)
 				byte = byte | power_of2(7 - 2 * i);
 			else
 			{
@@ -89,19 +91,17 @@ int		print_encoding(t_vars *ob, int op_code, char **params, int num_params)
 
 int		print_inst(t_vars *ob, char **inst, int counter)
 {
-	char **params;
-	int begin_address;
+	int		begin_address;
 
 	begin_address = counter;
 	if (ft_strchr(inst[0], LABEL_CHAR))
 		ob->bl_label = 1;
-	params = ft_strsplit(inst[ob->bl_label + 1], SEPARATOR_CHAR);
 	ob->op_code = get_op(inst[ob->bl_label]);
 	ft_putchar_fd(ob->op_code, ob->output_fd);
 	counter++;
-	counter += print_encoding(ob, ob->op_code, params,
+	counter += print_encoding(ob, ob->op_code, inst,
 			op_tab[ob->op_code].num_args);
-	counter += print_params(ob, params, ob->op_code, begin_address);
+	counter += print_params(ob, inst, ob->op_code, begin_address);
 	return (counter);
 }
 
@@ -122,7 +122,7 @@ int		generator(t_vars *ob, int fd)
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
-		inst = ft_strsplit(line, ' ');
+		inst = ft_strsplit(line, " ,");
 		if (ft_strcmp(inst[0], NAME_CMD_STRING) == 0 || 
 				ft_strcmp(inst[0], COMMENT_CMD_STRING) == 0)
 			print_name(ob, inst);

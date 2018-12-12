@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 20:49:07 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/11 16:18:45 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		main(int argc, char **argv)
 	else
 	{
 		fd = open(argv[1], O_RDONLY);
+		printf("fd: %d  file: %s\n", fd, argv[1]);
 		if (fd == -1 || lexer(&ob, fd) == -1)
 			return(printf("error in the input file\n"));
 		fd = open(argv[1], O_RDONLY);
