@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 20:36:05 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 21:25:47 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		print_name(t_vars *ob, char **inst, char *line)
 
 	i = 0;
 	length = ft_strcmp(inst[0], NAME_CMD_STRING) == 0 ?
-		PROG_NAME_LENGTH + 5: COMMENT_LENGTH + 8;
+		PROG_NAME_LENGTH + 5: COMMENT_LENGTH + 9;
 	free_split(inst);
 	inst = ft_strsplit(line, "\"\"");
 	i = ft_strlen(inst[1]);
