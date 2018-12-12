@@ -6,21 +6,22 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 20:26:57 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 13:34:14 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-int		get_op(char *mnemonic)
+int		get_op(char *mnemonic, t_vars *ob)
 {
 	int i;
 
 	i = 0;
-	while (i < 17)
+	while (i < 16)
 	{
 		if (ft_strcmp(op_tab[i].mnemonic, mnemonic) == 0)
 		{
+			ob->op_code = i;
 			return (i);
 			printf("op_code = %d\n", i);
 		}

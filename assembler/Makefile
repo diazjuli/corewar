@@ -6,7 +6,7 @@
 #    By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/15 19:22:08 by jdiaz             #+#    #+#              #
-#    Updated: 2018/12/11 20:43:11 by jcruz-y-         ###   ########.fr        #
+#    Updated: 2018/12/12 10:06:53 by jcruz-y-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,11 @@ re: fclean all
 de: fclean 
 	make -C $(LIBFT_PATH)
 	gcc -g -o $(NAME) $(FLAGS) $(INC) $(ASM_SRC) $(LIBFT_PATH)libft.a
+	echo "Compiled asm"
+	
+se: fclean 
+	make -C $(LIBFT_PATH)
+	gcc -g -o $(NAME) -fsanitize=address $(FLAGS) $(INC) $(ASM_SRC) $(LIBFT_PATH)libft.a
 	echo "Compiled asm"
 
 test: fclean

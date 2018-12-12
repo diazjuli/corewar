@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/assembler/asm",
-            "args": ["${workspaceFolder}/assembler/zork.s"],
+            "args": ["${workspaceFolder}/assembler/champions/Misaka_Mikoto.s"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

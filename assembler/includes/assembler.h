@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/11 19:47:55 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/12 13:34:30 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ typedef struct			s_vars
 int		all_whitespace(char *line);
 
 /*assembler*/
-int		get_op(char *mnemonic);
+int		get_op(char *mnemonic, t_vars *ob);
 int		free_split(char **inst);
 /*lexer*/
 int		check_name(t_vars *ob, char *line);
-int		get_label(char *lbl, t_vars *ob);
+int		get_label(char *lbl, t_vars *ob, char **inst);
 t_label	*ft_create_elem(char *lbl);
 int		lexer(t_vars *ob, int fd); //1st pass check lexical errors 
 /*check_args*/
