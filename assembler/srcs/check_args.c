@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:52 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 16:25:54 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/11 19:28:50 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "assembler.h"
+#include "../includes/assembler.h"
 
 int		check_register(char *reg)
 {
@@ -34,6 +34,7 @@ int		check_register(char *reg)
 		printf("register number too high\n");
 		exit (0);
 	}
+	printf("register number = %d\n", reg_num);
 	return (0);
 }
 
@@ -87,11 +88,13 @@ int		check_args(int num_args, int *arg_types, char **inst, t_vars *ob)
 {
 	int		i;
 
-	i = ob->bl_label + 2;
+	i = ob->bl_label + 1;
+	printf("check args i = %d\n", i);
 	while (i < num_args)
 	{
 		if (inst[i][0] == 'r' && ((T_REG & arg_types[i]) == T_REG))
 		{
+			printf("args inst[%d] = %s\n", i, inst[i]);
 			check_register(inst[i]);
 		}
 		else if (inst[i][0] == DIRECT_CHAR && ((T_DIR & arg_types[i]) == T_DIR))
