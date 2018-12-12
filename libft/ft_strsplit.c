@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 19:34:19 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/10/19 21:04:28 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 17:07:44 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	num_words(char const *s, char c)
+static int	num_words(char const *s, char c, char d)
 {
 	int len;
 
@@ -20,15 +20,15 @@ static int	num_words(char const *s, char c)
 	while (*s != '\0')
 	{
 		len++;
-		while (*s != '\0' && *s != c)
+		while (*s != '\0' && *s != c && *s != d)
 			s++;
-		while (*s == c)
+		while (*s == c || *s == d)
 			s++;
 	}
 	return (len);
 }
 
-static char	**get_words(char **result, char const *s, char c, int len)
+static char	**get_words(char **result, char const *s, char *str, int len)
 {
 	int i;
 	int j;
@@ -37,7 +37,7 @@ static char	**get_words(char **result, char const *s, char c, int len)
 	j = 0;
 	while (j < len)
 	{
-		while (s[i] != '\0' && s[i] != c)
+		while (s[i] != '\0' && s[i] != str[0] && s[i] != str[1])
 			i++;
 		result[j] = ft_strnew(i + 1);
 		result[j] = ft_strncpy(result[j], s, i);
@@ -45,26 +45,26 @@ static char	**get_words(char **result, char const *s, char c, int len)
 		s += i;
 		i = 0;
 		j++;
-		while (*s == c)
+		while (*s == str[0] || *s == str[1])
 			s++;
 	}
 	result[j] = 0;
 	return (result);
 }
 
-char		**ft_strsplit(char const *s, char c)
+char		**ft_strsplit(char const *s, char *str)
 {
 	char	**result;
 	int		len;
 
 	if (!s)
 		return (NULL);
-	while (*s == c)
+	while (*s == str[0] || *s == str[1])
 		s++;
-	len = num_words(s, c);
+	len = num_words(s, str[0], str[1]);
 	result = (char **)malloc(sizeof(char *) * len + 1);
 	if (!result)
 		return (NULL);
-	result = get_words(result, s, c, len);
+	result = get_words(result, s, str, len);
 	return (result);
 }

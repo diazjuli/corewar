@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/15 19:22:08 by jdiaz             #+#    #+#              #
-#    Updated: 2018/12/10 22:34:08 by jdiaz            ###   ########.fr        #
+#    Updated: 2018/12/11 16:51:42 by jcruz-y-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,4 +45,15 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re
+de: fclean 
+	make -C $(LIBFT_PATH)
+	gcc -g -o $(NAME) $(FLAGS) $(INC) $(ASM_SRC) $(LIBFT_PATH)libft.a
+	echo "Compiled asm"
+
+test: fclean
+	make -C $(LIBFT_PATH)
+	gcc -g -o test $(FLAGS) $(INC) srcs/test.c $(LIBFT_PATH)libft.a
+	echo "Compiled test"
+
+
+.PHONY: all, clean, fclean, re, de
