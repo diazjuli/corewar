@@ -3,25 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/10 21:26:45 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/11 17:21:25 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "assembler.h"
+#include "../includes/assembler.h"
 
-int		check_name(char **inst, t_vars *ob, char *line)
+int		check_name(t_vars *ob, char *line)
 {
+	char	**inst;
+
+	inst = ft_strsplit(line, "\"\"");
 	if (strcmp(NAME_CMD_STRING, inst[0]) == 0 && ft_strlen(line) <= PROG_NAME_LENGTH)
 	{
 		ob->player_name = inst[1];
+		free_split(inst);
 		return (0);
 	}
 	if (strcmp(COMMENT_CMD_STRING, inst[0]) == 0 && ft_strlen(line) <= COMMENT_LENGTH)
 	{
 		ob->comment = inst[1];
+		free_split(inst);
 		return (0);
 	}
 	else
@@ -74,11 +79,11 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 	{
 		if (line[0] == COMMENT_CHAR) 
 			continue;
-		inst = ft_strsplit(line, ' ');
-		if (line[0] == '.' && check_name(inst, ob, line) != -1)
+		if (line[0] == '.' && check_name(ob, line) != -1)
 			return (-1);
 		else
 		{
+			inst = ft_strsplit(line, " ,");
 			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob) == -1)
 				return (-1);
 			ob->op_code = get_op(inst[ob->bl_label]);
@@ -86,8 +91,8 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 					   	op_tab[ob->op_code].arg_types, inst, ob) == -1)
 				return (-1);
 			ob->bl_label = 0;
+			free_split(inst);
 		}
-		free_split(inst);
 		free(line);
 	}
 	close(fd);

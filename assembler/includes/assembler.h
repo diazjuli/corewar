@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assembler.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/10 22:32:18 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 17:20:06 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct			s_vars
 int		get_op(char *mnemonic);
 int		free_split(char **inst);
 /*lexer*/
-int		check_name(char **inst, t_vars *ob, char *line);
+int		check_name(t_vars *ob, char *line);
 int		get_label(char *lbl, t_vars *ob);
 t_label	*ft_create_elem(char *lbl);
 int		lexer(t_vars *ob, int fd); //1st pass check lexical errors 
