@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/12/11 18:42:06 by jdiaz            ###   ########.fr       */
+=======
+/*   Updated: 2018/12/11 18:59:17 by jcruz-y-         ###   ########.fr       */
+>>>>>>> 3b83975628b0bca310f9e9922b590616ba0b4b6d
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "assembler.h"
+#include "../includes/assembler.h"
 
 int		count_params(int op_code, int num_args, char **inst, int bl)
 {

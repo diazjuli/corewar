@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   assembler.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 17:36:44 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 19:31:47 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "assembler.h"
+#include "../includes/assembler.h"
 
 int		get_op(char *mnemonic)
 {
@@ -20,7 +20,10 @@ int		get_op(char *mnemonic)
 	while (i < 17)
 	{
 		if (ft_strcmp(op_tab[i].mnemonic, mnemonic) == 0)
+		{
 			return (i);
+			printf("op_code = %d\n", i);
+		}
 		i++;
 	}
 	return (-1);
@@ -31,12 +34,15 @@ int	free_split(char **inst)
 	int	i;
 
 	i = 0;
-	while (inst[i])
+	if (inst)
 	{
-		free(inst[i]);
-		i++;
+		while (inst[i])
+		{
+			free(inst[i]);
+			i++;
+		}
+		free(inst);
 	}
-	free(inst);
 	return (0);
 }	
 
@@ -50,7 +56,7 @@ int		main(int argc, char **argv)
 	else
 	{
 		fd = open(argv[1], O_RDONLY);
-		if (fd == -1 || lexer(&ob, fd) == -1)
+		if (lexer(&ob, fd) == -1 || fd == -1)
 			return(printf("error in the input file\n"));
 		printf("lexer is good\n");
 		fd = open(argv[1], O_RDONLY);
