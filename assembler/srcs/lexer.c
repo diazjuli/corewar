@@ -6,11 +6,11 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 17:21:25 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/11 17:45:15 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/assembler.h"
+#include <assembler.h>
 
 int		check_name(t_vars *ob, char *line)
 {
@@ -79,11 +79,13 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 	{
 		if (line[0] == COMMENT_CHAR) 
 			continue;
-		if (line[0] == '.' && check_name(ob, line) != -1)
+		else if (line[0] == '.' && check_name(ob, line) != -1)
 			return (-1);
 		else
 		{
 			inst = ft_strsplit(line, " ,");
+			printf("split worked\n");
+			printf("%s %s\n", line, inst[0]);
 			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob) == -1)
 				return (-1);
 			ob->op_code = get_op(inst[ob->bl_label]);
