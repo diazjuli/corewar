@@ -6,7 +6,11 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2018/12/11 18:42:06 by jdiaz            ###   ########.fr       */
+=======
 /*   Updated: 2018/12/11 18:59:17 by jcruz-y-         ###   ########.fr       */
+>>>>>>> 3b83975628b0bca310f9e9922b590616ba0b4b6d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +21,13 @@ int		count_params(int op_code, int num_args, char **inst, int bl)
 	int	mem;
 	int i;
 
-	i = 0;
+	i = 1 + bl;
 	mem = 0;
-	while (i < num_args)
+	while (i < num_args + 1 + bl)
 	{
-		if (inst[i + 1 + bl][0] == 'r')
+		if (inst[il][0] == 'r')
 			mem++;
-		else if (inst[i + 1 + bl][0] == DIRECT_CHAR && check_index(op_code) != 1)
+		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) != 1)
 			mem += DIR_SIZE;
 		else
 			mem += IND_SIZE;
@@ -63,7 +67,7 @@ int		get_label_address(t_vars *ob, int fd)
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
-		if (line[0] != COMMENT_CHAR && line[0] != '.' && ft_strcmp(line, "\n"))
+		if (line[0] != COMMENT_CHAR && line[0] != '.' && !all_whitespace(line))
 		{
 			inst = ft_strsplit(line, " ,");
 			if (ft_strchr(inst[0], LABEL_CHAR))

@@ -6,13 +6,13 @@
 /*   By: jcruz-y- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 17:21:46 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/11 19:11:09 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <assembler.h>
 
-int		print_name(t_vars *ob, char **inst)
+int		print_name(t_vars *ob, char **inst, char *line)
 {
 	int	length;
 	int i;
@@ -20,6 +20,8 @@ int		print_name(t_vars *ob, char **inst)
 	i = 0;
 	length = ft_strcmp(inst[0], NAME_CMD_STRING) == 0 ?
 		PROG_NAME_LENGTH : COMMENT_LENGTH;
+	free_split(inst);
+	inst = ft_strsplit(line, "\"\"");
 	i = ft_strlen(inst[1]);
 	ft_putstr_fd(inst[1], ob->output_fd);
 	while (i < length)
@@ -27,6 +29,7 @@ int		print_name(t_vars *ob, char **inst)
 		ft_putchar_fd(0, ob->output_fd);
 		i++;
 	}
+	free_split(inst);
 	return (1);
 }
 
@@ -122,17 +125,20 @@ int		generator(t_vars *ob, int fd)
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
-		inst = ft_strsplit(line, " ,");
-		if (ft_strcmp(inst[0], NAME_CMD_STRING) == 0 || 
-				ft_strcmp(inst[0], COMMENT_CMD_STRING) == 0)
-			print_name(ob, inst);
-		else
+		if (!all_whitespaces(line))
 		{
-			if ((counter = print_inst(ob, inst, counter)) == -1)
-				return (-1);
-		}
+			inst = ft_strsplit(line, " ,");
+			if (ft_strcmp(inst[0], NAME_CMD_STRING) == 0 || 
+					ft_strcmp(inst[0], COMMENT_CMD_STRING) == 0)
+				print_name(ob, inst, line);
+			else
+			{
+				if ((counter = print_inst(ob, inst, counter)) == -1)
+					return (-1);
+				free_split(split);
+			}
+		}	
 		free(line);
-		free_split(inst);
 	}
 	return (1);
 }
