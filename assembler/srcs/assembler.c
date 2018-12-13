@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 22:18:58 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 21:52:44 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		main(int argc, char **argv)
 		ob.output_fd = open("new_file.cor", O_CREAT | O_RDWR, 0644);
 		printf("outpufd: %d\n", ob.output_fd);
 		if (generator(&ob, fd) == -1)
-			return (-1);
+			return (printf("incorrect label used as a parameter\n"));
 		close(fd);
 		close(ob.output_fd);
 	}

@@ -6,30 +6,35 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 18:32:13 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/12 22:40:03 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-int		print_name(t_vars *ob, char **inst, char *line)
+int		print_name(t_vars *ob, char *line, int fd)
 {
 	int	length;
 	int i;
 
-	i = 0;
-	length = ft_strcmp(inst[0], NAME_CMD_STRING) == 0 ?
-		PROG_NAME_LENGTH + 5: COMMENT_LENGTH + 9;
-	free_split(inst);
-	inst = ft_strsplit(line, "\"\"\"");
-	i = ft_strlen(inst[1]);
-	ft_putstr_fd(inst[1], ob->output_fd);
-	while (i <= length)
-	{
+	length = PROG_NAME_LENGTH + 5;
+	ft_putstr_fd(ob->player_name, ob->output_fd);
+	i = ft_strlen(ob->player_name);
+	while (i++ < length)
 		ft_putchar_fd(0, ob->output_fd);
+	ft_putchar_fd(17, ob->output_fd);
+	length = COMMENT_LENGTH + 9;
+	i = ft_strlen(ob->comment);
+	ft_putstr_fd(ob->comment, ob->output_fd);
+	while (i++ < length)
+		ft_putchar_fd(0, ob->output_fd);
+	i = 0;
+	while (i < ob->begin_line)
+	{
+		get_next_line(fd, &line);
+		free(line);
 		i++;
 	}
-	free_split(inst);
 	return (1);
 }
 
@@ -40,9 +45,8 @@ int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
 
 	i = ob->bl_label + 1;
 	counter = 0;
-	while (inst[i] != NULL)
+	while (inst[i] != NULL && counter != -1)
 	{
-		
 		if (inst[i][0] == 'r')
 		{
 			counter++;
@@ -50,13 +54,13 @@ int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
 		}
 		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) == -1)
 		{
-			counter += 4;
-			print_direct(inst[i], ob, begin_address);
+			counter = print_direct(inst[i], ob, begin_address) == -1 ? -1
+				: counter + 4;
 		}
 		else
 		{
-			counter += 2;
-			print_indirect(inst[i], ob, begin_address);
+			counter = print_indirect(inst[i], ob, begin_address) == -1 ?
+				-1 : counter + 2;
 		}
 		i++;
 	}
@@ -96,6 +100,7 @@ int		print_encoding(t_vars *ob, int op_code, char **inst, int num_params)
 int		print_inst(t_vars *ob, char **inst, int counter)
 {
 	int		begin_address;
+	int		temp;
 
 	begin_address = counter;
 	if (ft_strchr(inst[0], LABEL_CHAR))
@@ -111,7 +116,8 @@ int		print_inst(t_vars *ob, char **inst, int counter)
 	counter++;
 	counter += print_encoding(ob, ob->op_code, inst,
 			op_tab[ob->op_code].num_args);
-	counter += print_params(ob, inst, ob->op_code, begin_address);
+	temp = print_params(ob, inst, ob->op_code, begin_address);
+	counter = temp == -1 ? -1 : counter + temp; 
 	free_split(inst);
 	return (counter);
 }
@@ -130,6 +136,7 @@ int		generator(t_vars *ob, int fd)
 	char	**inst;
 
 	counter = 2189;
+	print_name(ob, line, fd);
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
@@ -144,7 +151,7 @@ int		generator(t_vars *ob, int fd)
 				if ((counter = print_inst(ob, inst, counter)) == -1)
 					return (-1);
 			}
-		}	
+		}
 		free(line);
 	}
 	return (1);
