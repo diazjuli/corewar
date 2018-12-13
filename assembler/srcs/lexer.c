@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 18:44:32 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 19:06:07 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 			inst = ft_strsplit(line, " ,	");
 			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob, inst) == -1)
 				return (-1);
-			if (inst[1] && (get_op(inst[ob->bl_label], ob) == -1 ||
+			if (inst[1] && !ft_strchr(inst[1], COMMENT_CHAR) && (get_op(inst[ob->bl_label], ob) == -1 ||
 check_args(op_tab[ob->op_code].num_args, op_tab[ob->op_code].arg_types, inst, ob) == -1))
 				return (-1);
 			ob->bl_label = 0;
