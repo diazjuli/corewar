@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 00:28:06 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/13 00:52:54 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		check_name(t_vars *ob, char *line, int fd)
 	inst = ft_strsplit(line, "\"\"\"");
 	str = ft_strtrim(inst[0]);
 	if (inst[1])
-		jointline = inst[1];
+		jointline = ft_strdup(inst[1]);
 	else
-		jointline = "Default";
+		jointline = ft_strdup("Default");
 	if (ft_strcmp(NAME_CMD_STRING, str) == 0 || ft_strcmp(COMMENT_CMD_STRING, str) == 0)
 	{
 		if (strlastchr(line, '\"') == -1 && inst[1])
@@ -37,6 +37,7 @@ int		check_name(t_vars *ob, char *line, int fd)
 		ob->begin_line = ob->counter;
 		free_split(inst);
 		free(str);
+		free(jointline);
 		return (1);
 	}
 	else
@@ -164,13 +165,18 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 {
 	char	*line;
 	char	**inst;
+	int		i;
 
+	i = 0;
 	while ((get_next_line(fd, &line) > 0)) 
 	{
 		printf("%s\n", line);
 		ob->counter++;
 		if (line[0] == COMMENT_CHAR || empty(line) == -1) 
+		{
+			free(line);
 			continue;
+		}
 		else if (check_dot(line) == 1 && check_name(ob, line, fd) == -1)
 			return (-1);
 		else if (line[0] != COMMENT_CHAR && check_dot(line) != 1 && empty(line) == 1)
@@ -185,6 +191,9 @@ check_args(op_tab[ob->op_code].num_args, op_tab[ob->op_code].arg_types, inst, ob
 			free_split(inst);
 		}
 		free(line);
+		i++;
+		if (i == 19)
+			while(1);
 	}
 	close(fd);
 	return (1);
