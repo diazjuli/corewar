@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 16:36:08 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 18:10:11 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,18 @@ int		print_inst(t_vars *ob, char **inst, int counter)
 	begin_address = counter;
 	if (ft_strchr(inst[0], LABEL_CHAR))
 		ob->bl_label = 1;
+	if (ob->bl_label == 1 && (!inst[1] || inst[1][0] == COMMENT_CHAR))
+	{
+		free_split(inst);
+		return (counter);
+	}
 	get_op(inst[ob->bl_label], ob);
 	ft_putchar_fd(ob->op_code + 1, ob->output_fd);
 	counter++;
 	counter += print_encoding(ob, ob->op_code, inst,
 			op_tab[ob->op_code].num_args);
 	counter += print_params(ob, inst, ob->op_code, begin_address);
+	free_split(inst);
 	return (counter);
 }
 
@@ -139,7 +145,6 @@ int		generator(t_vars *ob, int fd)
 			{
 				if ((counter = print_inst(ob, inst, counter)) == -1)
 					return (-1);
-				free_split(inst);
 			}
 		}	
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 13:34:14 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 18:10:28 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		main(int argc, char **argv)
 		fd = open(argv[1], O_RDONLY);
 		if (lexer(&ob, fd) == -1 || fd == -1)
 			return(printf("error in the input file\n"));
-		printf("lexer is good\n");
+		printf("lexer is good\n\n");
 		fd = open(argv[1], O_RDONLY);
 		get_label_address(&ob, fd);
 		printf("got addresses\n");

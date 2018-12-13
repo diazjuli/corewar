@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 13:38:41 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 18:17:46 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		set_address(char *label, int address, t_vars *ob)
 	t_label *tmp;
 
 	tmp = ob->labels;
+	ob->bl_label = 1;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->label, label) == 0)
@@ -68,14 +69,14 @@ int		get_label_address(t_vars *ob, int fd)
 		{
 			inst = ft_strsplit(line, " ,	");
 			if (ft_strchr(inst[0], LABEL_CHAR))
-			{
 				set_address(inst[0], counter, ob);
-				ob->bl_label = 1;
+			if (ob->bl_label != 1 || (inst[1] && inst[1][0] != COMMENT_CHAR))
+			{
+				get_op(inst[ob->bl_label], ob);
+				counter += 1 + op_tab[ob->op_code].encoding_byte;
+				counter += count_params(ob->op_code, op_tab[ob->op_code].num_args,
+						inst, ob->bl_label);
 			}
-			get_op(inst[ob->bl_label], ob);
-			counter += 1 + op_tab[ob->op_code].encoding_byte;
-			counter += count_params(ob->op_code, op_tab[ob->op_code].num_args,
-					inst, ob->bl_label);
 			free_split(inst);
 		}
 		free(line);
