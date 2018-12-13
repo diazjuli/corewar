@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/12 15:53:48 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 17:08:25 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_label	*ft_create_elem(char *lbl);
 int		lexer(t_vars *ob, int fd); //1st pass check lexical errors 
 char	*join_quotes(char *str, int fd);
 int		strlastchr(char *str, char c);
+int		check_label(char *lbl);
 /*check_args*/
 int		check_args(int num_args, int *arg_types, char **inst, t_vars *ob);
 int		check_indirect(char *ind);
