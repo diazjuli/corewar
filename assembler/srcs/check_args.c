@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:52 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 21:16:32 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/13 01:06:17 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int		check_direct(char *direct)   //can be %:alphanumeric or %numeric
 	{
 		while (direct[i]) 
 		{
-			if ((direct[i] >= '0' && direct[i] <= '9') || direct[ft_strlen(direct) - 1] == SEPARATOR_CHAR)
+			if (((direct[i] >= '0' && direct[i] <= '9') || direct[1] == '-') ||
+			 direct[ft_strlen(direct) - 1] == SEPARATOR_CHAR)
 				i++;
 			else
 			{
@@ -90,7 +91,7 @@ int	check_indirect(char *ind)
 	{
 		if (ind[i] == LABEL_CHAR && check_arglabel(ind) == -1)
 			return (-1);
-		if ((ind[i] >= '0' && ind[i] <= '9') || ind[ft_strlen(ind) - 1] == SEPARATOR_CHAR)
+		if (((ind[i] >= '0' && ind[i] <= '9') || ind[0] == '-') || ind[ft_strlen(ind) - 1] == SEPARATOR_CHAR)
 			i++;
 		else
 		{

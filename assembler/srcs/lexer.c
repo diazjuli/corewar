@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 00:52:54 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/13 01:02:09 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,6 @@ check_args(op_tab[ob->op_code].num_args, op_tab[ob->op_code].arg_types, inst, ob
 		}
 		free(line);
 		i++;
-		if (i == 19)
-			while(1);
 	}
 	close(fd);
 	return (1);
