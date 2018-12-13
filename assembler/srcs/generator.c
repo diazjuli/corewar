@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 18:10:11 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/12 18:32:13 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,16 @@ int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
 		}
 		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) == -1)
 		{
-			printf("arg: %s ", inst[i]);
 			counter += 4;
 			print_direct(inst[i], ob, begin_address);
 		}
 		else
 		{
-			printf("arg: %s ", inst[i]);
 			counter += 2;
 			print_indirect(inst[i], ob, begin_address);
 		}
 		i++;
 	}
-	printf("\n");
 	return (counter);
 }
 
@@ -103,7 +100,8 @@ int		print_inst(t_vars *ob, char **inst, int counter)
 	begin_address = counter;
 	if (ft_strchr(inst[0], LABEL_CHAR))
 		ob->bl_label = 1;
-	if (ob->bl_label == 1 && (!inst[1] || inst[1][0] == COMMENT_CHAR))
+	if (inst[0][0] == COMMENT_CHAR || (ob->bl_label == 1 &&
+			(!inst[1] || inst[1][0] == COMMENT_CHAR)))
 	{
 		free_split(inst);
 		return (counter);
