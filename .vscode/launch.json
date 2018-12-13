@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/assembler/asm",
-            "args": ["${workspaceFolder}/assembler/champions/Wall.s"],
+            "args": ["${workspaceFolder}/assembler/zork.s"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

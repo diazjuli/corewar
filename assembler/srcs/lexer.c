@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 19:06:07 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 20:27:31 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int		check_label(char *lbl)
 	int		i;
 
 	i = 0;
+	if (strlastchr(lbl, LABEL_CHAR) == -1)
+		return (-1);
 	while (lbl[i] != LABEL_CHAR)
 	{
 		if (!ft_strchr(LABEL_CHARS, lbl[i]))
@@ -80,6 +82,7 @@ int		check_label(char *lbl)
 	}
 	return (1);
 }
+
 int		get_label(char *lbl, t_vars *ob, char ** inst)
 {
 	t_label	*tmp;
