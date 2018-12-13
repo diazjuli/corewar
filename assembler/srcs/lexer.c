@@ -6,37 +6,76 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 14:41:52 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 16:14:41 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-int		check_name(t_vars *ob, char *line)
+int		check_name(t_vars *ob, char *line, int fd)
 {
 	char	**inst;
+	char	*jointline;
 	char	*str;
 
 	inst = ft_strsplit(line, "\"\"\"");
 	str = ft_strtrim(inst[0]);
-	if (ft_strcmp(NAME_CMD_STRING, str) == 0 && ft_strlen(line) <= PROG_NAME_LENGTH)
+	if (ft_strcmp(NAME_CMD_STRING, str) == 0) //check till double quotes
 	{
-		ob->player_name = inst[1];
+		jointline = inst[1];
+		if (strlastchr(line, '\"') == -1)
+			jointline = join_quotes(inst[1], fd);
+		if (ft_strlen(jointline) <= PROG_NAME_LENGTH)	
+			ob->player_name = jointline;
 		printf("name = %s\n", ob->player_name);
-		free_split(inst);
-		free(str);
-		return (0);
 	}
 	if (ft_strcmp(COMMENT_CMD_STRING, str) == 0 && ft_strlen(line) <= COMMENT_LENGTH)
 	{
-		ob->comment = inst[1];
+		jointline = inst[1];
+		if (strlastchr(line, '\"') == -1)
+			jointline = join_quotes(inst[1], fd);
+		if (ft_strlen(jointline) <= COMMENT_LENGTH)	
+			ob->comment = jointline;
 		printf("comment = %s\n", ob->comment);
-		free_split(inst);
-		free(str);
-		return (0);
 	}
+	free_split(inst);
+	free(str);
+	return (1);
+/* 	else
+		return (-1); */
+}
+
+int		strlastchr(char *str, char c)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		i++;
+	}
+	i--;
+	if (str[i] == c)
+		return (1);
 	else
 		return (-1);
+}
+
+char	*join_quotes(char *str, int fd)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	while (!ft_strchr(str, '"'))
+	{
+		get_next_line(fd, &line);
+		str = ft_strjoin(str, line);
+	}
+	i = ft_strlen(str);
+	i--;
+	str[i] = '\0';
+	return (str);
 }
 
 int		get_label(char *lbl, t_vars *ob, char ** inst)
@@ -110,7 +149,7 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 	{
 		if (line[0] == COMMENT_CHAR || empty_line(line) == -1 ) 
 			continue;
-		else if (line[0] == '.' && check_name(ob, line) == -1)
+		else if (line[0] == '.' && check_name(ob, line, fd) == -1)
 			return (-1);
 		else if (line[0] != COMMENT_CHAR && line[0] != '.' && empty_line(line) == 1)
 		{
