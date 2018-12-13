@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 13:38:19 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 16:36:08 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
 	counter = 0;
 	while (inst[i] != NULL)
 	{
+		
 		if (inst[i][0] == 'r')
 		{
 			counter++;
@@ -49,16 +50,19 @@ int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
 		}
 		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) == -1)
 		{
+			printf("arg: %s ", inst[i]);
 			counter += 4;
 			print_direct(inst[i], ob, begin_address);
 		}
 		else
 		{
+			printf("arg: %s ", inst[i]);
 			counter += 2;
 			print_indirect(inst[i], ob, begin_address);
 		}
 		i++;
 	}
+	printf("\n");
 	return (counter);
 }
 
@@ -87,8 +91,8 @@ int		print_encoding(t_vars *ob, int op_code, char **inst, int num_params)
 			}
 			i++;
 		}
+		ft_putchar_fd(byte, ob->output_fd);
 	}
-	ft_putchar_fd(byte, ob->output_fd);
 	return (counter);
 }
 
