@@ -6,11 +6,11 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 21:38:19 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/12 16:36:08 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <assembler.h>
+#include "../includes/assembler.h"
 
 int		print_name(t_vars *ob, char **inst, char *line)
 {
@@ -21,7 +21,7 @@ int		print_name(t_vars *ob, char **inst, char *line)
 	length = ft_strcmp(inst[0], NAME_CMD_STRING) == 0 ?
 		PROG_NAME_LENGTH + 5: COMMENT_LENGTH + 9;
 	free_split(inst);
-	inst = ft_strsplit(line, "\"\"");
+	inst = ft_strsplit(line, "\"\"\"");
 	i = ft_strlen(inst[1]);
 	ft_putstr_fd(inst[1], ob->output_fd);
 	while (i <= length)
@@ -103,7 +103,7 @@ int		print_inst(t_vars *ob, char **inst, int counter)
 	begin_address = counter;
 	if (ft_strchr(inst[0], LABEL_CHAR))
 		ob->bl_label = 1;
-	ob->op_code = get_op(inst[ob->bl_label]);
+	get_op(inst[ob->bl_label], ob);
 	ft_putchar_fd(ob->op_code + 1, ob->output_fd);
 	counter++;
 	counter += print_encoding(ob, ob->op_code, inst,
@@ -131,7 +131,7 @@ int		generator(t_vars *ob, int fd)
 		ob->bl_label = 0;
 		if (!all_whitespace(line))
 		{
-			inst = ft_strsplit(line, " ,");
+			inst = ft_strsplit(line, " ,	");
 			if (ft_strcmp(inst[0], NAME_CMD_STRING) == 0 || 
 					ft_strcmp(inst[0], COMMENT_CMD_STRING) == 0)
 				print_name(ob, inst, line);

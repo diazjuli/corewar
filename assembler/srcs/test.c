@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 16:27:32 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/11 17:12:45 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 09:25:10 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(int argc, char **argv)
 	int		i;
 
 	(void) argc;
-	arr = ft_strsplit(argv[1], "\"\"");
+	arr = ft_strsplit(argv[1], " ,	");
 	i = 0;
 	while (arr[i])
 	{
