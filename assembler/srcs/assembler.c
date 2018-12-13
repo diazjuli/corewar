@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 21:52:44 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/12 23:20:59 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ int		main(int argc, char **argv)
 		close(fd);
 		close(ob.output_fd);
 	}
+	while (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 23:03:30 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 23:20:23 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,20 @@ char	*join_quotes(char *str, int fd, t_vars *ob)
 {
 	int		i;
 	char	*line;
+	char	*tmp;
 
 	i = 0;
 	while (!ft_strchr(str, '"'))
 	{
 		get_next_line(fd, &line);
 		ob->counter++;
-		str = ft_strjoin(str, line);
+		tmp = ft_strjoin(str, line);
 	}
 	i = ft_strlen(str);
 	i--;
-	str[i] = '\0';
-	return (str);
+	tmp[i] = '\0';
+	free(str);
+	return (tmp);
 }
 int		check_label(char *lbl)
 {
