@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/12 18:37:41 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 22:23:07 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct			s_vars
 	t_label				*labels;
 	int					bl_label;
 	int					op_code;
+	int					begin_line;
+	int					counter;
 	//t_inst				*ins_ls;
 }						t_vars;
 
@@ -78,7 +80,7 @@ int		check_name(t_vars *ob, char *line, int fd);
 int		get_label(char *lbl, t_vars *ob, char **inst);
 t_label	*ft_create_elem(char *lbl);
 int		lexer(t_vars *ob, int fd); //1st pass check lexical errors 
-char	*join_quotes(char *str, int fd);
+char	*join_quotes(char *str, int fd, t_vars *ob);
 int		strlastchr(char *str, char c);
 int		check_label(char *lbl);
 int		check_dot(char *str);

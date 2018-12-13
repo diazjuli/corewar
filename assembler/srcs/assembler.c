@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 18:10:28 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/12 22:18:58 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		main(int argc, char **argv)
 	t_vars	ob;
 	int		fd;
 
+	ob.counter = 0;
 	if (argc != 2)
 		printf("incorrect number of arguments\n");
 	else
