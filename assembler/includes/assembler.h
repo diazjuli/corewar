@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/12 18:37:41 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 22:39:08 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		check_register(char *reg);
 int		count_params(int op_code, int num_args, char **inst, int bl);
 int		get_label_address(t_vars *ob, int fd);
 /*generator*/
-int		print_name(t_vars *ob, char **inst, char *line);
+int		print_name(t_vars *ob, char *line, int fd);
 int		print_encoding(t_vars *ob, int op_code, char **params, int num_params);
 int		print_inst(t_vars *ob, char **inst, int counter);
 int		generator(t_vars *ob, int fd);

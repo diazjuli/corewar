@@ -6,30 +6,35 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 21:52:02 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/12 22:40:03 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-int		print_name(t_vars *ob, char **inst, char *line)
+int		print_name(t_vars *ob, char *line, int fd)
 {
 	int	length;
 	int i;
 
-	i = 0;
-	length = ft_strcmp(inst[0], NAME_CMD_STRING) == 0 ?
-		PROG_NAME_LENGTH + 5: COMMENT_LENGTH + 9;
-	free_split(inst);
-	inst = ft_strsplit(line, "\"\"\"");
-	i = ft_strlen(inst[1]);
-	ft_putstr_fd(inst[1], ob->output_fd);
-	while (i <= length)
-	{
+	length = PROG_NAME_LENGTH + 5;
+	ft_putstr_fd(ob->player_name, ob->output_fd);
+	i = ft_strlen(ob->player_name);
+	while (i++ < length)
 		ft_putchar_fd(0, ob->output_fd);
+	ft_putchar_fd(17, ob->output_fd);
+	length = COMMENT_LENGTH + 9;
+	i = ft_strlen(ob->comment);
+	ft_putstr_fd(ob->comment, ob->output_fd);
+	while (i++ < length)
+		ft_putchar_fd(0, ob->output_fd);
+	i = 0;
+	while (i < ob->begin_line)
+	{
+		get_next_line(fd, &line);
+		free(line);
 		i++;
 	}
-	free_split(inst);
 	return (1);
 }
 
@@ -131,6 +136,7 @@ int		generator(t_vars *ob, int fd)
 	char	**inst;
 
 	counter = 2189;
+	print_name(ob, line, fd);
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
