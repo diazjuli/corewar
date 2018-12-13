@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 22:40:03 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/12 22:51:59 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		print_name(t_vars *ob, char *line, int fd)
 	int i;
 
 	length = PROG_NAME_LENGTH + 5;
+	printf("%s %s\n", ob->player_name, ob->comment);
 	ft_putstr_fd(ob->player_name, ob->output_fd);
 	i = ft_strlen(ob->player_name);
 	while (i++ < length)
@@ -136,6 +137,7 @@ int		generator(t_vars *ob, int fd)
 	char	**inst;
 
 	counter = 2189;
+	line = NULL;
 	print_name(ob, line, fd);
 	while ((get_next_line(fd, &line) > 0))
 	{
@@ -143,14 +145,8 @@ int		generator(t_vars *ob, int fd)
 		if (!all_whitespace(line))
 		{
 			inst = ft_strsplit(line, " ,	");
-			if (ft_strcmp(inst[0], NAME_CMD_STRING) == 0 || 
-					ft_strcmp(inst[0], COMMENT_CMD_STRING) == 0)
-				print_name(ob, inst, line);
-			else
-			{
-				if ((counter = print_inst(ob, inst, counter)) == -1)
-					return (-1);
-			}
+			if ((counter = print_inst(ob, inst, counter)) == -1)
+				return (-1);
 		}
 		free(line);
 	}
