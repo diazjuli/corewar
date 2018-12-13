@@ -52,6 +52,7 @@ int		main(int argc, char **argv)
 	t_vars	ob;
 	int		fd;
 
+	ob.counter = 0;
 	if (argc != 2)
 		printf("incorrect number of arguments\n");
 	else

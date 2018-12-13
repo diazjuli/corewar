@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 20:27:31 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 22:22:15 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ int		check_name(t_vars *ob, char *line, int fd)
 	if (ft_strcmp(NAME_CMD_STRING, str) == 0 || ft_strcmp(COMMENT_CMD_STRING, str) == 0)
 	{
 		if (strlastchr(line, '\"') == -1)
-			jointline = join_quotes(inst[1], fd);
+			jointline = join_quotes(inst[1], fd, ob);
 		if (ft_strcmp(NAME_CMD_STRING, str) == 0 && ft_strlen(jointline) <= PROG_NAME_LENGTH)	
 			ob->player_name = jointline;
 		if (ft_strcmp(COMMENT_CMD_STRING, str) == 0 && ft_strlen(jointline) <= COMMENT_LENGTH)	
 			ob->comment = jointline;
+		ob->begin_line = ob->counter;
 		free_split(inst);
 		free(str);
 		return (1);
@@ -51,7 +52,7 @@ int		strlastchr(char *str, char c)
 		return (-1);
 }
 
-char	*join_quotes(char *str, int fd)
+char	*join_quotes(char *str, int fd, t_vars *ob)
 {
 	int		i;
 	char	*line;
@@ -60,6 +61,7 @@ char	*join_quotes(char *str, int fd)
 	while (!ft_strchr(str, '"'))
 	{
 		get_next_line(fd, &line);
+		ob->counter++;
 		str = ft_strjoin(str, line);
 	}
 	i = ft_strlen(str);
@@ -158,6 +160,7 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 	while ((get_next_line(fd, &line) > 0)) 
 	{
 		printf("%s\n", line);
+		ob->counter++;
 		if (line[0] == COMMENT_CHAR || empty(line) == -1) 
 			continue;
 		else if (check_dot(line) == 1 && check_name(ob, line, fd) == -1)
