@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 22:22:15 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 23:03:30 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int		check_name(t_vars *ob, char *line, int fd)
 		if (strlastchr(line, '\"') == -1)
 			jointline = join_quotes(inst[1], fd, ob);
 		if (ft_strcmp(NAME_CMD_STRING, str) == 0 && ft_strlen(jointline) <= PROG_NAME_LENGTH)	
-			ob->player_name = jointline;
+			ob->player_name = ft_strdup(jointline);
 		if (ft_strcmp(COMMENT_CMD_STRING, str) == 0 && ft_strlen(jointline) <= COMMENT_LENGTH)	
-			ob->comment = jointline;
+			ob->comment = ft_strdup(jointline);
 		ob->begin_line = ob->counter;
 		free_split(inst);
 		free(str);
