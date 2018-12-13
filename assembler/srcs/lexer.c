@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 17:11:46 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 18:44:32 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,21 @@ int		empty(char *str)
 	return (-1);
 }
 
+int		check_dot(char *str)
+{
+	int		i;
 
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '.')
+			return (1);
+		if (str[i] != ' ' && str[i] != '	')
+			return (-1);
+		i++;
+	}
+	return (-1);
+}
 
 int		lexer(t_vars *ob, int fd) //1st pass check lexical errors 
 {
@@ -140,11 +154,12 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 
 	while ((get_next_line(fd, &line) > 0)) 
 	{
+		printf("%s\n", line);
 		if (line[0] == COMMENT_CHAR || empty(line) == -1) 
 			continue;
-		else if (line[0] == '.' && check_name(ob, line, fd) == -1)
+		else if (check_dot(line) == 1 && check_name(ob, line, fd) == -1)
 			return (-1);
-		else if (line[0] != COMMENT_CHAR && line[0] != '.' && empty(line) == 1)
+		else if (line[0] != COMMENT_CHAR && check_dot(line) != 1 && empty(line) == 1)
 		{
 			inst = ft_strsplit(line, " ,	");
 			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob, inst) == -1)
