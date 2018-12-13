@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 21:08:10 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/11 21:14:40 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2018/12/12 21:48:31 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ int		print_direct(char *param, t_vars *ob, int begin_address)
 
 	i = 3;
 	param = param + 1;
-	if (*(param + 1) == LABEL_CHAR)
+	if (param[0] == LABEL_CHAR)
 	{
-		num = get_address(param + 1, ob);
+
+		if ((num = get_address(param + 1, ob)) == -1)
+			return (-1);
 		num = begin_address - num;
 	}
 	else
@@ -82,23 +84,27 @@ int		print_direct(char *param, t_vars *ob, int begin_address)
 int		print_indirect(char *param, t_vars *ob, int begin_address)
 {
 	int		num;
-	char	byte1;
-	char	byte2;
+	int		i;
+	char	temp;
 
-	byte1 = 0;
-	byte2 = 0;
-	if (*(param + 1) == LABEL_CHAR)
+	i = 1;
+	if (param[0] == DIRECT_CHAR)
+		param = param + 1;
+	if (param[0] == LABEL_CHAR)
 	{
-		num = get_address(param + 2, ob);
+		if ((num = get_address(param + 1, ob)) == -1)
+			return (-1);
 		num = num - begin_address;
 	}
 	else
 		num = ft_atoi(param + 1);
-	byte2 = (char)(num & 255);
-	byte1 = (char)(num >> 8);
-	if (num < 0)
-		byte1 = byte1 | 128;
-	ft_putchar_fd(byte1, ob->output_fd);
-	ft_putchar_fd(byte2, ob->output_fd);
+	while (i >= 0)
+	{
+		temp = num;
+		temp = temp >> (8 * i);
+		temp = temp & 255;
+		ft_putchar_fd((char)temp, ob->output_fd);
+		i--;
+	}
 	return (1);
 }
