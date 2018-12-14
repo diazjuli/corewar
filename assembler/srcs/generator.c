@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 22:51:59 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 14:20:26 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,25 @@ int		print_name(t_vars *ob, char *line, int fd)
 	int	length;
 	int i;
 
-	length = PROG_NAME_LENGTH + 5;
-	printf("%s %s\n", ob->player_name, ob->comment);
+	i = 3;
+	while (i >= 0)
+	{
+		length = COREWAR_EXEC_MAGIC;
+		length = length >> (8 * i);
+		length = length & 255;
+		ft_putchar_fd((char)length, ob->output_fd);
+		i--;
+	}
+	length = PROG_NAME_LENGTH + 4;
 	ft_putstr_fd(ob->player_name, ob->output_fd);
 	i = ft_strlen(ob->player_name);
 	while (i++ < length)
 		ft_putchar_fd(0, ob->output_fd);
 	ft_putchar_fd(17, ob->output_fd);
-	length = COMMENT_LENGTH + 9;
+	length = COMMENT_LENGTH + 8;
 	i = ft_strlen(ob->comment);
 	ft_putstr_fd(ob->comment, ob->output_fd);
-	while (i++ < length)
+	while (++i < length)
 		ft_putchar_fd(0, ob->output_fd);
 	i = 0;
 	while (i < ob->begin_line)

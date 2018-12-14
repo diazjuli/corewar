@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/12 21:39:38 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 13:13:11 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,16 @@ int		get_label_address(t_vars *ob, int fd)
 	int		counter;
 	char	*line;
 	char	**inst;
+	int		i;
 
 	counter = 2189;
+	i = 0;
+	while (i < ob->begin_line)
+	{
+		get_next_line(fd, &line);
+		free(line);
+		i++;
+	}
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
