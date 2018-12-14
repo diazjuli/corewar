@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 21:16:50 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 22:32:13 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		check_label(char *lbl)
 	return (1);
 }
 
-int		get_label(char *lbl, t_vars *ob, char **inst)
+int		get_label(char *lbl, t_vars *ob)
 {
 	t_label	*tmp;
 	t_label	*elem;
@@ -47,8 +47,7 @@ int		get_label(char *lbl, t_vars *ob, char **inst)
 		ob->labels = elem;
 	if (tmp != NULL)
 		tmp->next = elem;
-	if (inst[1])
-		ob->bl_label = 1;
+	ob->bl_label = 1;
 	return (0);
 }
 
@@ -116,8 +115,9 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 		else if (all_whitespace(line) != 1 && inst[0][0] != COMMENT_CHAR)
 		{
 		
-			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob, inst) == -1)
+			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob) == -1)
 				return (-1);
+			printf("inst : %s\n", inst[ob->bl_label]);
 			if (inst[ob->bl_label] && inst[ob->bl_label][0] != COMMENT_CHAR
 					&& (get_op(inst[ob->bl_label], ob) == -1 ||
 					 check_args(op_tab[ob->op_code].num_args,
