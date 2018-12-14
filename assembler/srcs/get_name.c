@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 19:45:01 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/13 19:55:16 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 22:15:52 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		add_lines(t_vars *ob, char *line, int fd, int i)
 		ob->player_name = new;
 	else
 		ob->comment = new;
-	ob->begin_line = ob->counter + 1;
+	ob->begin_line = ob->counter;
 	return (1);
 }
 
@@ -73,7 +73,7 @@ int		check_name(t_vars *ob, char *line, int fd)
 		ob->player_name = new;
 	else
 		ob->comment = new;
-	ob->begin_line = ob->counter + 1;
+	ob->begin_line = ob->counter;
 	return (1);
 }
 
