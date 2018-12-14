@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 19:40:12 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 22:41:02 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		main(int argc, char **argv)
 			return (printf("incorrect label used as a parameter\n"));
 		close(fd);
 		close(ob.output_fd);
+		sleep(6);
 	}
 	return (0);
 }

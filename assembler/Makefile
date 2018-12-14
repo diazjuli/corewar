@@ -70,4 +70,5 @@ te:
 	hexdump new_file.cor
 	hexdump champions/$(FILE).cor
 
+
 .PHONY: all, clean, fclean, re, de
