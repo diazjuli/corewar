@@ -6,7 +6,7 @@
 #    By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/15 19:22:08 by jdiaz             #+#    #+#              #
-#    Updated: 2018/12/13 13:57:14 by jdiaz            ###   ########.fr        #
+#    Updated: 2018/12/13 19:46:01 by jdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,10 @@ FLAGS = -Wall -Werror -Wextra
 INC = -I ./includes/ -I ./$(LIBFT_PATH)includes/
 
 ASM_SRC = srcs/generator.c srcs/parser.c srcs/check_args.c srcs/lexer.c \
-		  srcs/assembler.c srcs/op.c srcs/tools.c
+		  srcs/assembler.c srcs/op.c srcs/tools.c srcs/get_name.c
 		  
-ASM_OBJ = generator.o parser.o check_args.o assembler.o op.o lexer.o tools.o
+ASM_OBJ = generator.o parser.o check_args.o assembler.o op.o lexer.o tools.o \
+		  get_name.o
 
 all: $(NAME)
 
