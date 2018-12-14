@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 21:08:10 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/13 21:24:38 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 23:25:15 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		print_indirect(char *param, t_vars *ob, int begin_address)
 {
 	int		num;
 	int		i;
-	char	temp;
+	int		temp;
 
 	i = 1;
 	if (param[0] == DIRECT_CHAR)
@@ -98,13 +98,16 @@ int		print_indirect(char *param, t_vars *ob, int begin_address)
 	}
 	else
 		num = ft_atoi(param);
+	printf("num: %d ", num);
 	while (i >= 0)
 	{
 		temp = num;
 		temp = temp >> (8 * i);
 		temp = temp & 255;
+		printf("byte: %d ", temp);
 		ft_putchar_fd((char)temp, ob->output_fd);
 		i--;
 	}
+	printf("\n");
 	return (1);
 }
