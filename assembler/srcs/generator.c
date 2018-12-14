@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 21:24:36 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 22:21:11 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
 		}
 		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) == -1)
 		{
-
+			printf("arg: %s checki: %d\n", inst[i], check_index(op_code));
 			counter = print_direct(inst[i], ob, begin_address) == -1 ? -1
 				: counter + 4;
 		}
