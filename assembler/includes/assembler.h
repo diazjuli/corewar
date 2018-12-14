@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/12 22:39:08 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 22:31:06 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		get_op(char *mnemonic, t_vars *ob);
 int		free_split(char **inst);
 /*lexer*/
 int		check_name(t_vars *ob, char *line, int fd);
-int		get_label(char *lbl, t_vars *ob, char **inst);
+int		get_label(char *lbl, t_vars *ob);
 t_label	*ft_create_elem(char *lbl);
 int		lexer(t_vars *ob, int fd); //1st pass check lexical errors 
 char	*join_quotes(char *str, int fd, t_vars *ob);
