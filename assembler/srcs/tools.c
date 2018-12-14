@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 21:08:10 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/12 21:48:31 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 14:25:22 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		print_indirect(char *param, t_vars *ob, int begin_address)
 		num = num - begin_address;
 	}
 	else
-		num = ft_atoi(param + 1);
+		num = ft_atoi(param);
 	while (i >= 0)
 	{
 		temp = num;

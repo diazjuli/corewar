@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 01:32:50 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 16:01:48 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,18 @@ int		check_label(char *lbl)
 	int		i;
 
 	i = 0;
-	if (strlastchr(lbl, LABEL_CHAR) == -1)
-		return (-1);
 	while (lbl[i] != LABEL_CHAR)
 	{
 		if (!ft_strchr(LABEL_CHARS, lbl[i]))
 			return (-1);
 		i++;
 	}
+	if (lbl[i + 1] != '\0' || lbl[0] == LABEL_CHAR)
+		return (-1);
 	return (1);
 }
 
-int		get_label(char *lbl, t_vars *ob, char ** inst)
+int		get_label(char *lbl, t_vars *ob, char **inst)
 {
 	t_label	*tmp;
 	t_label	*elem;
@@ -167,13 +167,12 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 {
 	char	*line;
 	char	**inst;
-	int		i;
 
-	i = 0;
 	while ((get_next_line(fd, &line) > 0)) 
 	{
 		printf("%s\n", line);
 		ob->counter++;
+		ob->bl_label = 0;
 		if (line[0] == COMMENT_CHAR || empty(line) == -1) 
 		{
 			free(line);
@@ -181,19 +180,19 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 		}
 		else if (check_dot(line) == 1 && check_name(ob, line, fd) == -1)
 			return (-1);
-		else if (line[0] != COMMENT_CHAR && check_dot(line) != 1 && empty(line) == 1)
+		else if (check_dot(line) != 1 && empty(line) == 1)
 		{
 			inst = ft_strsplit(line, " ,	");
 			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob, inst) == -1)
 				return (-1);
-			if (inst[1] && !ft_strchr(inst[1], COMMENT_CHAR) && (get_op(inst[ob->bl_label], ob) == -1 ||
-check_args(op_tab[ob->op_code].num_args, op_tab[ob->op_code].arg_types, inst, ob) == -1))
-				return (-1);
-			ob->bl_label = 0;
+			if (inst[ob->bl_label] && inst[ob->bl_label][0] != COMMENT_CHAR
+					&& (get_op(inst[ob->bl_label], ob) == -1 ||
+					 check_args(op_tab[ob->op_code].num_args,
+						 op_tab[ob->op_code].arg_types, inst, ob) == -1))
+				return (-1);	
 			free_split(inst);
 		}
 		free(line);
-		i++;
 	}
 	close(fd);
 	return (1);

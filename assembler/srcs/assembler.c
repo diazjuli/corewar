@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:09:01 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 01:12:16 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 14:26:14 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int		get_op(char *mnemonic, t_vars *ob)
 		{
 			ob->op_code = i;
 			return (i);
-			printf("op_code = %d\n", i);
 		}
 		i++;
 	}
@@ -67,12 +66,10 @@ int		main(int argc, char **argv)
 		close(fd);
 		fd = open(argv[1], O_RDONLY);
 		ob.output_fd = open("new_file.cor", O_CREAT | O_RDWR, 0644);
-		printf("outpufd: %d\n", ob.output_fd);
 		if (generator(&ob, fd) == -1)
 			return (printf("incorrect label used as a parameter\n"));
 		close(fd);
 		close(ob.output_fd);
-		sleep(7);
 	}
 	return (0);
 }
