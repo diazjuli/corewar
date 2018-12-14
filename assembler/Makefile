@@ -6,7 +6,7 @@
 #    By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/15 19:22:08 by jdiaz             #+#    #+#              #
-#    Updated: 2018/12/13 19:46:01 by jdiaz            ###   ########.fr        #
+#    Updated: 2018/12/13 22:37:44 by jdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,5 +61,11 @@ test: fclean
 	gcc -g  -o test $(FLAGS) $(INC) srcs/test.c $(LIBFT_PATH)libft.a
 	echo "Compiled test"
 
+te:
+	rm new_file.cor
+	./asm ex.s
+	./sm42 ex.s
+	hexdump new_file.cor
+	hexdump ex.cor
 
 .PHONY: all, clean, fclean, re, de
