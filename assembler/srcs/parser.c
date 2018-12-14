@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 13:13:11 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 21:24:34 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ int		get_label_address(t_vars *ob, int fd)
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
-		if (line[0] != COMMENT_CHAR && line[0] != '.' && !all_whitespace(line))
+		inst = ft_strsplit(line, " ,	");
+		if (inst[0] && inst[0][0] != COMMENT_CHAR && inst[0][0] != '.' &&
+				!all_whitespace(line))
 		{
-			inst = ft_strsplit(line, " ,	");
 			if (ft_strchr(inst[0], LABEL_CHAR))
 				set_address(inst[0], counter, ob);
 			if (ob->bl_label != 1 || (inst[1] && inst[1][0] != COMMENT_CHAR))
@@ -85,8 +86,8 @@ int		get_label_address(t_vars *ob, int fd)
 				counter += count_params(ob->op_code, op_tab[ob->op_code].num_args,
 						inst, ob->bl_label);
 			}
-			free_split(inst);
 		}
+		free_split(inst);
 		free(line);
 	}
 	return (1);

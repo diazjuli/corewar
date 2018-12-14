@@ -6,80 +6,12 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 16:01:48 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 21:16:50 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-int		check_name(t_vars *ob, char *line, int fd)
-{
-	char	**inst;
-	char	*jointline;
-	char	*str;
-
-	inst = ft_strsplit(line, "\"\"\"");
-	str = ft_strtrim(inst[0]);
-	if (inst[1])
-		jointline = ft_strdup(inst[1]);
-	else
-		jointline = ft_strdup("Default");
-	if (ft_strcmp(NAME_CMD_STRING, str) == 0 || ft_strcmp(COMMENT_CMD_STRING, str) == 0)
-	{
-		if (strlastchr(line, '\"') == -1 && inst[1])
-			jointline = join_quotes(inst[1], fd, ob);
-		if (ft_strcmp(NAME_CMD_STRING, str) == 0 && ft_strlen(jointline) <= PROG_NAME_LENGTH)	
-		{
-			ob->player_name = ft_strdup(jointline);
-		}
-		if (ft_strcmp(COMMENT_CMD_STRING, str) == 0 && ft_strlen(jointline) <= COMMENT_LENGTH)	
-			ob->comment = ft_strdup(jointline);
-		ob->begin_line = ob->counter;
-		free_split(inst);
-		free(str);
-		free(jointline);
-		return (1);
-	}
-	else
-		return (-1);
-}
-
-int		strlastchr(char *str, char c)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	i--;
-	if (str[i] == c)
-		return (1);
-	else
-		return (-1);
-}
-
-char	*join_quotes(char *str, int fd, t_vars *ob)
-{
-	int		i;
-	char	*line;
-	char	*tmp;
-
-	i = 0;
-	while (!ft_strchr(str, '"'))
-	{
-		get_next_line(fd, &line);
-		ob->counter++;
-		tmp = ft_strdup(str);
-		str = ft_strjoin(tmp, line);
-		if (line && line[0])
-			free(line);
-		free(tmp);
-	}
-	i = ft_strlen(str);
-	i--;
-	str[i] = '\0';
-	return (str);
-}
 int		check_label(char *lbl)
 {
 	int		i;
@@ -163,6 +95,7 @@ int		check_dot(char *str)
 	return (-1);
 }
 
+
 int		lexer(t_vars *ob, int fd) //1st pass check lexical errors 
 {
 	char	*line;
@@ -170,19 +103,19 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 
 	while ((get_next_line(fd, &line) > 0)) 
 	{
+		inst = ft_strsplit(line, " ,	");
 		printf("%s\n", line);
 		ob->counter++;
 		ob->bl_label = 0;
-		if (line[0] == COMMENT_CHAR || empty(line) == -1) 
+		if (inst[0] && (ft_strcmp(inst[0], NAME_CMD_STRING) == 0 ||
+				ft_strcmp(inst[0], COMMENT_CMD_STRING) == 0))
 		{
-			free(line);
-			continue;
+			if (check_name(ob, line, fd) == -1)
+				return (-1);
 		}
-		else if (check_dot(line) == 1 && check_name(ob, line, fd) == -1)
-			return (-1);
-		else if (check_dot(line) != 1 && empty(line) == 1)
+		else if (all_whitespace(line) != 1 && inst[0][0] != COMMENT_CHAR)
 		{
-			inst = ft_strsplit(line, " ,	");
+		
 			if (ft_strchr(inst[0], LABEL_CHAR) && get_label(inst[0], ob, inst) == -1)
 				return (-1);
 			if (inst[ob->bl_label] && inst[ob->bl_label][0] != COMMENT_CHAR
@@ -190,10 +123,9 @@ int		lexer(t_vars *ob, int fd) //1st pass check lexical errors
 					 check_args(op_tab[ob->op_code].num_args,
 						 op_tab[ob->op_code].arg_types, inst, ob) == -1))
 				return (-1);	
-			free_split(inst);
 		}
+		free_split(inst);
 		free(line);
 	}
-	close(fd);
 	return (1);
 }

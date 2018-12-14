@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 14:20:26 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 21:24:36 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
 
 	i = ob->bl_label + 1;
 	counter = 0;
-	while (inst[i] != NULL && counter != -1)
+	while (inst[i] != NULL && inst[i][0] != COMMENT_CHAR && counter != -1)
 	{
 		if (inst[i][0] == 'r')
 		{
@@ -63,6 +63,7 @@ int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
 		}
 		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) == -1)
 		{
+
 			counter = print_direct(inst[i], ob, begin_address) == -1 ? -1
 				: counter + 4;
 		}

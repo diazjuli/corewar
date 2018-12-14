@@ -1,38 +1,71 @@
-//1)first pass parsing
-//2)identify name and comment
-//separate accordingly (the virtual machine will only consume the program starting
-//from the first instruction
-
-//1) #1 op_code byte #2 if encoding flag == 1 encoding byte #3 parameter byte(s)
-
-#include <assembler.h>
-/*
-fd1 = open(argv[1], RD_ONLY);
-char	*newfile(char *str)
-fd2 = open(newfile(argv[1], RDWR);
-get_next_line
-/*1st pass LEXER*/
-void	lexer(char *filename) 		  //Iterate through the whole file and check for lexical errors.
-									   //(op mnemonics, indirect labels correspond, direct and indirect numbers are numbers
+int		check_name_old(t_vars *ob, char *line, int fd)
 {
+	char	**inst;
+	char	*jointline;
+	char	*str;
 
+	inst = ft_strsplit(line, "\"\"\"");
+	str = ft_strtrim(inst[0]);
+	if (inst[1])
+		jointline = ft_strdup(inst[1]);
+	else
+		jointline = ft_strdup("Default");
+	if (ft_strcmp(NAME_CMD_STRING, str) == 0 ||
+			ft_strcmp(COMMENT_CMD_STRING, str) == 0)
+	{
+		if (strlastchr(line, '\"') == -1 && inst[1])
+			jointline = join_quotes(inst[1], fd, ob);
+		if (ft_strcmp(NAME_CMD_STRING, str) == 0 && ft_strlen(jointline)
+				<= PROG_NAME_LENGTH)	
+		{
+			ob->player_name = ft_strdup(jointline);
+		}
+		if (ft_strcmp(COMMENT_CMD_STRING, str) == 0 && ft_strlen(jointline)
+				<= COMMENT_LENGTH)	
+			ob->comment = ft_strdup(jointline);
+		ob->begin_line = ob->counter;
+		free_split(inst);
+		free(str);
+		free(jointline);
+		return (1);
+	}
+	else
+		return (-1);
 }
-void	get_structure
-int		get_labels                    //create a linked list with the labels and its addresses  ex: %:liv == 15, be counting bytes, -1 error
-void	create_word_array?            //create a word array with
 
+char	*join_quotes(char *str, int fd, t_vars *ob)
+{
+	int		i;
+	char	*line;
+	char	*tmp;
 
-/*2nd pass get labels*/
-int		check_optable(char *str)      	//check op_table
-int		get_op_code(char *instruction) 	//iterate through the op_table and get instruction
-void	write_op_byt(char **chararr)    //
-int		check_par_typ(char *str)      	// check parameter type with op table
-int		get_par_type(char *str)
-void	get_encoding_byt(char *str)       //con bitwise operators irlos guardando en un byte
-void	write_encoding_byt(int	rnum_dnum_inum)
-void	write_bits(t_asm obj, int fd2)
+	i = 0;
+	while (!ft_strchr(str, '"'))
+	{
+		get_next_line(fd, &line);
+		ob->counter++;
+		tmp = ft_strdup(str);
+		str = ft_strjoin(tmp, line);
+		if (line && line[0])
+			free(line);
+		free(tmp);
+	}
+	i = ft_strlen(str);
+	i--;
+	str[i] = '\0';
+	return (str);
+}
 
-/*3rd pass write bits*/
+int		strlastchr(char *str, char c)
+{
+	int		i;
 
-//convert to a decimal number text file??
-open(argv[1])
+	i = 0;
+	while (str[i])
+		i++;
+	i--;
+	if (str[i] == c)
+		return (1);
+	else
+		return (-1);
+}
