@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:52 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 15:54:20 by jdiaz            ###   ########.fr       */
+/*   Updated: 2018/12/13 17:10:51 by jdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int check_args(int num_args, int *arg_types, char **inst, t_vars *ob)
 	j = 0;
 	while (inst[i] && i < num_args + ob->bl_label + 1)
 	{
-		printf("%s\n", inst[i]);
 		if (inst[i][0] == 'r')
 		{
 			if ((T_REG & arg_types[j]) != T_REG || check_register(inst[i]) == -1)
