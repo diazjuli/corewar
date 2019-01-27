@@ -6,13 +6,13 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/01/26 18:28:41 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/26 19:03:32 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-int				count_params(int op_code, int num_args, char **inst, int bl)
+static int				count_params(int op_code, int num_args, char **inst, int bl)
 {
 	int	mem;
 	int i;
@@ -32,7 +32,7 @@ int				count_params(int op_code, int num_args, char **inst, int bl)
 	return (mem);
 }
 
-int				set_address(char *label, int address, t_vars *ob)
+static int				set_address(char *label, int address, t_vars *ob)
 {
 	t_label *tmp;
 

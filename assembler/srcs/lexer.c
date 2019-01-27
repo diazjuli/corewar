@@ -6,13 +6,24 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/01/26 18:25:20 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/26 19:00:39 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-int				check_label(char *lbl, t_vars *ob)
+static t_label			*ft_create_elem(char *lbl)
+{
+	t_label	*elem;
+
+	elem = (t_label*)malloc(sizeof(t_label));
+	elem->label = ft_strdup(lbl);
+	elem->address = -1;
+	elem->next = NULL;
+	return (elem);
+}
+
+static int				check_label(char *lbl, t_vars *ob)
 {
 	int		i;
 
@@ -28,7 +39,7 @@ int				check_label(char *lbl, t_vars *ob)
 	return (1);
 }
 
-int				get_label(char *lbl, t_vars *ob)
+static int				get_label(char *lbl, t_vars *ob)
 {
 	t_label	*tmp;
 	t_label	*elem;
@@ -51,17 +62,6 @@ int				get_label(char *lbl, t_vars *ob)
 		tmp->next = elem;
 	ob->bl_label = 1;
 	return (0);
-}
-
-t_label			*ft_create_elem(char *lbl)
-{
-	t_label	*elem;
-
-	elem = (t_label*)malloc(sizeof(t_label));
-	elem->label = ft_strdup(lbl);
-	elem->address = -1;
-	elem->next = NULL;
-	return (elem);
 }
 
 static int		arg_lexer(char **inst, t_vars *ob)
