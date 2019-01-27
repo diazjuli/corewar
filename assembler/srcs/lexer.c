@@ -6,13 +6,13 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:59 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/01/26 19:00:39 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/26 19:11:34 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-static t_label			*ft_create_elem(char *lbl)
+static t_label	*ft_create_elem(char *lbl)
 {
 	t_label	*elem;
 
@@ -23,7 +23,7 @@ static t_label			*ft_create_elem(char *lbl)
 	return (elem);
 }
 
-static int				check_label(char *lbl, t_vars *ob)
+static int		check_label(char *lbl, t_vars *ob)
 {
 	int		i;
 
@@ -39,7 +39,7 @@ static int				check_label(char *lbl, t_vars *ob)
 	return (1);
 }
 
-static int				get_label(char *lbl, t_vars *ob)
+static int		get_label(char *lbl, t_vars *ob)
 {
 	t_label	*tmp;
 	t_label	*elem;

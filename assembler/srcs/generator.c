@@ -6,13 +6,13 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:57 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/01/26 18:55:33 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/26 19:14:44 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-static int		print_name(t_vars *ob, int fd)
+static int	print_name(t_vars *ob, int fd)
 {
 	int	length;
 	int i;
@@ -35,7 +35,8 @@ static int		print_name(t_vars *ob, int fd)
 	return (1);
 }
 
-static int		print_params(t_vars *ob, char **inst, int op_code, int begin_address)
+static int	print_params(t_vars *ob, char **inst,
+						int op_code, int begin_address)
 {
 	int	counter;
 	int i;
@@ -60,7 +61,7 @@ static int		print_params(t_vars *ob, char **inst, int op_code, int begin_address
 	return (counter);
 }
 
-static int		print_encoding(t_vars *ob, int op_code, char **inst, int num_params)
+static int	print_encoding(t_vars *ob, int op_code, char **inst, int num_params)
 {
 	int	byte;
 	int i;
@@ -88,7 +89,7 @@ static int		print_encoding(t_vars *ob, int op_code, char **inst, int num_params)
 	return (0);
 }
 
-static int		print_inst(t_vars *ob, char **inst, int counter)
+static int	print_inst(t_vars *ob, char **inst, int counter)
 {
 	int		begin_address;
 	int		temp;
@@ -120,7 +121,7 @@ static int		print_inst(t_vars *ob, char **inst, int counter)
 ** Print parameters to correct number of bytes.
 */
 
-int		generator(t_vars *ob, int fd)
+int			generator(t_vars *ob, int fd)
 {
 	int		counter;
 	char	*line;
