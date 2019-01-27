@@ -6,23 +6,23 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:52 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/01/26 12:32:16 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/26 17:13:05 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-static int		check_arg_type(char **inst, int arg_types, t_vars *ob, int *i)
+static int	check_arg_type(char **inst, int arg_types, t_vars *ob, int *i)
 {
 	if (inst[*i][0] == 'r')
 	{
-		if (check_register(inst[*i], arg_types, ob, *i) == -1) // check that the inst
-			return (-1);					// receives REG and that the register nb is valid
+		if (check_register(inst[*i], arg_types, ob, *i) == -1)
+			return (-1);
 		ob->prog_size++;
 	}
 	else if (inst[*i][0] == DIRECT_CHAR)
 	{
-		if (check_direct(inst[*i], arg_types, ob, *i) == -1) // same here
+		if (check_direct(inst[*i], arg_types, ob, *i) == -1)
 			return (-1);
 		ob->prog_size += 2;
 		if (check_index(ob->op_code) == -1)
@@ -30,20 +30,20 @@ static int		check_arg_type(char **inst, int arg_types, t_vars *ob, int *i)
 	}
 	else
 	{
-		if (check_indirect(inst[*i], arg_types, ob, *i) == -1) // same here
+		if (check_indirect(inst[*i], arg_types, ob, *i) == -1)
 			return (-1);
 		ob->prog_size += 2;
 	}
 	return (1);
 }
 
-int				check_args(int num_args, int *arg_types, char **inst, t_vars *ob)
+int			check_args(int num_args, int *arg_types, char **inst, t_vars *ob)
 {
 	int i;
 	int j;
 
 	ob->prog_size++;
-	i = ob->bl_label + 1; // set i to the 1st argument of the inst
+	i = ob->bl_label + 1;
 	j = 0;
 	op_tab[ob->op_code].encoding_byte == 1 ? ob->prog_size++ : 0;
 	while (inst[i] && i < num_args + ob->bl_label + 1)
@@ -54,7 +54,7 @@ int				check_args(int num_args, int *arg_types, char **inst, t_vars *ob)
 		j++;
 	}
 	if (i != num_args + ob->bl_label + 1 || (inst[i] != NULL && inst[i][0]
-				!= COMMENT_CHAR)) // if the num_args don't match with the expected, ret -1
+				!= COMMENT_CHAR))
 		return (error_message(11, ob->counter, 0));
 	return (1);
 }

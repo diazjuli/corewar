@@ -6,7 +6,7 @@
 /*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 19:45:01 by jdiaz             #+#    #+#             */
-/*   Updated: 2019/01/26 15:04:06 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/26 18:22:23 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,22 @@ int				check_name(t_vars *ob, char *line)
 	char	i;
 	char	*new;
 
-	line = ft_strchr(line, '.'); // if there is tab or space before it moves it to the .
-	i = *(++line); //this would be a "n" or a "c"
-	while (*line && *line != ' ' && *line != '\t') // skiping the letters
+	line = ft_strchr(line, '.');
+	i = *(++line);
+	while (*line && *line != ' ' && *line != '\t')
 		line++;
-	while (*line && (*line == ' ' || *line == '\t')) // skiping the spaces
+	while (*line && (*line == ' ' || *line == '\t'))
 		line++;
-	if (*line != '"') // if there is no double quotes after the spaces return -1
+	if (*line != '"')
 		return (error_message(2, i, 0));
-	line++; // we are inside the name/comment after the first double quotes
+	line++;
 	if (!ft_strchr(line, '"') || ft_strchr(line, '"') != ft_strrchr(line, '"'))
 		return (error_message(2, i, 0));
 	new = ft_strdup(line);
 	line = ft_strchr(new, '"');
-	*line = '\0'; // added in order to save only what's inside the double quotes
+	*line = '\0';
 	while (*(++line))
-		if (*line != ' ' && *line != '\t') // if there is something after the double quotes that isn't spaces
+		if (*line != ' ' && *line != '\t')
 			return (error_message(2, i, 0));
 	save_name_comment(ob, i, new);
 	return (check_max_sizes(ob));

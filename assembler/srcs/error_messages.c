@@ -6,7 +6,7 @@
 /*   By: tholzheu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 20:50:23 by tholzheu          #+#    #+#             */
-/*   Updated: 2019/01/26 15:07:15 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/26 18:37:57 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,21 @@
 
 static void			error_message_pt2(int msg_nb, int i, int arg)
 {
-	if (msg_nb == 10)
-		printf("Error on line %d, argument %d: invalid characters in label\n", i, arg);
+	if (msg_nb == 9)
+	{
+		printf("Error on line %d, argument %d: ", i, arg);
+		printf("register number out of range\n");
+	}
+	else if (msg_nb == 10)
+	{
+		printf("Error on line %d, argument %d: ", i, arg);
+		printf("invalid characters in label\n");
+	}
 	else if (msg_nb == 11)
-		printf("Error on line %d: the number of arguments don't match with the expected\n", i);
+	{
+		printf("Error on line %d: ", i);
+		printf("the number of arguments don't match with the expected\n");
+	}
 	else if (msg_nb == 12)
 		printf("Error on line %d, argument %d: no such label\n", i, arg);
 }
@@ -41,11 +52,12 @@ int					error_message(int msg_nb, int i, int arg)
 	else if (msg_nb == 6)
 		printf("Error on line %d: syntax error in mnemonic\n", i);
 	else if (msg_nb == 7)
-		printf("Error on line %d, argument %d: invalid argument type\n", i, arg);
+	{
+		printf("Error on line %d, argument %d: ", i, arg);
+		printf("invalid argument type\n");
+	}
 	else if (msg_nb == 8)
 		printf("Error on line %d, argument %d: syntax error\n", i, arg);
-	else if (msg_nb == 9)
-		printf("Error on line %d, argument %d: register number out of range\n", i, arg);
 	error_message_pt2(msg_nb, i, arg);
 	return (-1);
 }

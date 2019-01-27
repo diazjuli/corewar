@@ -6,14 +6,14 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/26 15:23:55 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/26 18:26:27 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 #include "assembler.h"
 
-t_op    op_tab[17] =
+t_op	op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0}, //no
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0}, //yes
