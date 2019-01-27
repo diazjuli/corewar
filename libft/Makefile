@@ -6,7 +6,7 @@
 #    By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/10 16:01:51 by jdiaz             #+#    #+#              #
-#    Updated: 2018/12/10 19:06:18 by jdiaz            ###   ########.fr        #
+#    Updated: 2019/01/26 15:31:36 by tholzheu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ SRC =  ft_memccpy.c \
 	   itoa_base.c \
 	   ft_sort_list.c \
 	   ft_num_words.c \
+	   skip_lines.c \
 	   get_next_line.c
 
 OBJ=$(SRC:.c=.o)

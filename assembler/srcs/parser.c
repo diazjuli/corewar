@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:29:05 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 22:19:26 by jdiaz            ###   ########.fr       */
+/*   Updated: 2019/01/26 15:55:05 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int		count_params(int op_code, int num_args, char **inst, int bl)
 
 	i = 1 + bl;
 	mem = 0;
-	while (i < num_args + 1 + bl)
+	while (i < num_args + 1 + bl) // num_args + mnemonic + label (if it has)
 	{
-		if (inst[i][0] == 'r')
+		if (inst[i][0] == 'r') // if it's a register add one
 			mem++;
-		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) != 1)
+		else if (inst[i][0] == DIRECT_CHAR && check_index(op_code) != 1) // if direct_char and not index
 			mem += DIR_SIZE;
 		else
 			mem += IND_SIZE;
@@ -50,6 +50,18 @@ int		set_address(char *label, int address, t_vars *ob)
 	return (-1);
 }
 
+static int		count_bytes(char **inst, t_vars *ob)
+{
+	int		counter;
+
+	counter = 0;
+	get_op(inst[ob->bl_label], ob);
+	counter += 1 + op_tab[ob->op_code].encoding_byte; // add 1 to the counter + encoding byte
+	counter += count_params(ob->op_code, op_tab[ob->op_code].num_args,
+			inst, ob->bl_label); // add 1, 2 or 4 depending if it's DIR, IND, REG (and index)
+	return (counter);
+}
+
 /*
 ** Second pass through the file. Will check validity of all labels used and 
 ** get addresses for each label. Uses counter to keep track of current address
@@ -60,32 +72,20 @@ int		get_label_address(t_vars *ob, int fd)
 	int		counter;
 	char	*line;
 	char	**inst;
-	int		i;
 
-	counter = 2189;
-	i = 0;
-	while (i < ob->begin_line)
-	{
-		get_next_line(fd, &line);
-		free(line);
-		i++;
-	}
+	counter = 2192;
+	skip_lines(ob->begin_line, fd);
 	while ((get_next_line(fd, &line) > 0))
 	{
 		ob->bl_label = 0;
-		inst = ft_strsplit(line, " ,	");
+		inst = ft_strsplit(line, " ,\t");
 		if (inst[0] && inst[0][0] != COMMENT_CHAR && inst[0][0] != '.' &&
-				!all_whitespace(line))
+				!all_whitespace(line)) // if there is something that it's not a comment or blank line
 		{
 			if (ft_strchr(inst[0], LABEL_CHAR))
 				set_address(inst[0], counter, ob);
-			if (ob->bl_label != 1 || (inst[1] && inst[1][0] != COMMENT_CHAR))
-			{
-				get_op(inst[ob->bl_label], ob);
-				counter += 1 + op_tab[ob->op_code].encoding_byte;
-				counter += count_params(ob->op_code, op_tab[ob->op_code].num_args,
-						inst, ob->bl_label);
-			}
+			if (ob->bl_label != 1 || (inst[1] && inst[1][0] != COMMENT_CHAR)) // if not a comment 
+				counter += count_bytes(inst, ob);
 		}
 		free_split(inst);
 		free(line);

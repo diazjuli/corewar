@@ -6,133 +6,55 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 18:28:52 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2018/12/13 17:10:51 by jdiaz            ###   ########.fr       */
+/*   Updated: 2019/01/26 12:32:16 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/assembler.h"
 
-int		check_register(char *reg)
+static int		check_arg_type(char **inst, int arg_types, t_vars *ob, int *i)
 {
-	int		reg_num;
-	int		i;
-
-	i = 1;
-	while (reg[i])
+	if (inst[*i][0] == 'r')
 	{
-		if ((reg[i] >= '0' && reg[i] <= '9'))
-			i++;
-		else
-		{
-			printf("error in register lex index %d\n", i);  
-			return (-1);
-		}
+		if (check_register(inst[*i], arg_types, ob, *i) == -1) // check that the inst
+			return (-1);					// receives REG and that the register nb is valid
+		ob->prog_size++;
 	}
-	reg_num = ft_atoi(reg + 1);
-	if (reg_num > REG_NUMBER || reg_num <= 0)
+	else if (inst[*i][0] == DIRECT_CHAR)
 	{
-		printf("register number out of range\n");
-		return (-1);
-	}
-	return (0);
-}
-int		check_arglabel(char *lbl)
-{
-	int		i;
-
-	i = 1;
-	if (lbl[i] == '\0')
-		return (-1);
-	while (lbl[i])
-	{
-		if (!ft_strchr(LABEL_CHARS, lbl[i]))
+		if (check_direct(inst[*i], arg_types, ob, *i) == -1) // same here
 			return (-1);
-		i++;
+		ob->prog_size += 2;
+		if (check_index(ob->op_code) == -1)
+			ob->prog_size += 2;
+	}
+	else
+	{
+		if (check_indirect(inst[*i], arg_types, ob, *i) == -1) // same here
+			return (-1);
+		ob->prog_size += 2;
 	}
 	return (1);
 }
 
-int		check_direct(char *direct)   //can be %:alphanumeric or %numeric
-{
-	int	i;
-
-	i = 1;
-	if (direct[1] == LABEL_CHAR)
-	{
-		if (check_arglabel(direct + 1) == -1)
-			return (-1);
-	}
-	else
-	{
-		if (direct[i] == '-')
-				i++;
-		if (direct[i] == '\0')
-			return (-1);
-		while (direct[i]) 
-		{
-			if (direct[i] < '0' || direct[i] > '9')
-			{
-				printf("error in direct lex index %d\n", i);  
-				return (-1);
-			}
-			i++;
-		}
-	}
-	return (0);
-}
-
-
-int	check_indirect(char *ind)
-{
-	int	i;
-
-	i = 0;
-	if (ind[i] == LABEL_CHAR)
-		return (check_arglabel(ind));
-	if (ind[i] == '-')
-		i++;
-	while (ind[i])
-	{
-		if (ind[i] >= '0' && ind[i] <= '9')
-			i++;
-		else
-		{
-			printf("error in indirect lex index %d\n", i);
-			return (-1);
-		}
-	}
-	return (0);
-}
-
-int check_args(int num_args, int *arg_types, char **inst, t_vars *ob)
+int				check_args(int num_args, int *arg_types, char **inst, t_vars *ob)
 {
 	int i;
 	int j;
 
-	i = ob->bl_label + 1;
+	ob->prog_size++;
+	i = ob->bl_label + 1; // set i to the 1st argument of the inst
 	j = 0;
+	op_tab[ob->op_code].encoding_byte == 1 ? ob->prog_size++ : 0;
 	while (inst[i] && i < num_args + ob->bl_label + 1)
 	{
-		if (inst[i][0] == 'r')
-		{
-			if ((T_REG & arg_types[j]) != T_REG || check_register(inst[i]) == -1)
-				return (-1);
-		}
-		else if (inst[i][0] == DIRECT_CHAR)
-		{
-			if ((T_DIR & arg_types[j]) != T_DIR || check_direct(inst[i]) == -1)
-				return (-1);
-		}
-		else
-		{
-			if ((T_IND & arg_types[j]) != T_IND || check_indirect(inst[i]) == -1)
-				return (-1);
-		}
+		if (check_arg_type(inst, arg_types[j], ob, &i) == -1)
+			return (-1);
 		i++;
 		j++;
 	}
 	if (i != num_args + ob->bl_label + 1 || (inst[i] != NULL && inst[i][0]
-				!= COMMENT_CHAR))
-		return (-1);
+				!= COMMENT_CHAR)) // if the num_args don't match with the expected, ret -1
+		return (error_message(11, ob->counter, 0));
 	return (1);
 }

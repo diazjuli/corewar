@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 19:34:19 by jdiaz             #+#    #+#             */
-/*   Updated: 2018/12/12 09:26:04 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2019/01/24 21:14:44 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	**get_words(char **result, char const *s, char *st, int len)
 		while (*s == st[0] || *s == st[1] || *s == st[2])
 			s++;
 	}
-	result[j] = 0;
+	result[j] = NULL;
 	return (result);
 }
 
