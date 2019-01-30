@@ -6,12 +6,12 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/26 18:26:27 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/29 14:53:23 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
-#include "assembler.h"
+#include "../includes/op.h"
+#include "../includes/assembler.h"
 
 t_op	op_tab[17] =
 {
