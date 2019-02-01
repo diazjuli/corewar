@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_name.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 19:45:01 by jdiaz             #+#    #+#             */
-/*   Updated: 2019/01/26 18:56:24 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/30 10:19:02 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <assembler.h>
+#include "../includes/assembler.h"
 
 static int		check_max_sizes(t_vars *ob)
 {

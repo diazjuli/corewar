@@ -15,15 +15,22 @@
 # include "../../assembler/includes/op.h"
 # include "../../assembler/includes/assembler.h"
 # include <ncurses.h>
+# include "../../libft/libft.h"
+
+typedef struct		s_argcv
+{
+	int				argc;
+	char			**argv;
+}					        t_argcv;
 
 typedef struct		s_flag
 {
 	int				dump_bl;
-	int				cycles;
+	int				dump_cycles;
 	int				n_bl;
-	int				n_num;
+	int				n_pnum;
 	int				interactive;
-}					t_flag;
+}					        t_flag;
 
 typedef struct		s_inst
 {
@@ -41,19 +48,22 @@ typedef struct		s_player
 	int				dead;
 	int				xy[2];   //start location
 	int				pc;
-	int				pnum;
-	
+	int				pnum;	
 	t_inst			*inst;
+	int				total_size;
 	int				prog_size;
+	int				actual_size;
 	char			*name;
 	char			*comment;
 	char			*prog;
-	struct s_player *nx;
+	struct s_player *next;
+	int				first;
 }					t_player;
 
 typedef struct	s_arena
 {
-	//char		arena[64][MEM_SIZE / 64];
+	int			argc;
+	char		**argv;
 	char		memory[MEM_SIZE];
 	int			num_plys;
 	int			cycle_to_die;
@@ -63,7 +73,6 @@ typedef struct	s_arena
 	int			live_counter;
 	t_flag		*flags;
 	int			last_alive;
-	
 }				t_arena;
 
 typedef struct			s_windows
@@ -78,5 +87,17 @@ typedef			int t_inst_funct(t_player *player, t_arena *arena);
 **	save_inst
 */
 int				save_inst(t_player *player, t_arena *arena);
+/*
+* Initial State
+*/
+# define FLAGSC "id"
+# define OPTIONS "OPTIONS ARE:\n-i for interactive mode\n-n [desired_player_num] [player]\n-dump [cycles] for dumping arena memory\n"
+int				print_error(int errnum, t_player *fplayer, t_arena *arena);
+int				get_player(t_arena *arena, t_player **player, int *i);
+int				get_flags(t_arena *arena, int *i, t_player *fplayer);
+void			init_arena_ob(t_arena *arena, int argc, char **argv);
+t_player		*add_player(t_player **head);
+t_player		*create_player();
+int				init_arena(t_arena *arena, t_player **player);
 
 #endif

@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.c                                               :+:      :+:    :+:   */
+/*   ft_pstrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/29 19:58:22 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/01/29 20:47:21 by jcruz-y-         ###   ########.fr       */
+/*   Created: 2018/09/11 14:06:43 by jcruz-y-          #+#    #+#             */
+/*   Updated: 2019/01/10 18:54:46 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/vm.h"
+#include "../ft.h"
 
-int		main(int argc, char **argv)
+char	*ft_pstrchr(const char *s, int c)
 {
+	int		i;
 
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			return ((char*)&s[i]);
+		i++;
+	}
+	if (c == '\0')
+		return ((char*)&s[i]);
+	return (NULL);
 }

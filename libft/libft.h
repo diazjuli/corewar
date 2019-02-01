@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 16:56:37 by jdiaz             #+#    #+#             */
-/*   Updated: 2019/01/26 15:30:36 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/30 20:29:40 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <strings.h>
+# include "ft.h"
 
 typedef struct		s_list
 {
@@ -101,7 +102,9 @@ char				*nbase_uitoa(unsigned int num, unsigned int base);
 t_list				*ft_sort_list(t_list *list, int (*f)(void *, void *));
 int					ft_num_words(char const *s);
 int					get_next_line(const int fd, char **line);
-
+int					ft_isdigitstr(char *str);
 void				skip_lines(int nb, int fd);
+void				mem_to_int(int	*dst, int address, char *prog, int bytes);
+
 
 #endif
