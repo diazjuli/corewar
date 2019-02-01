@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tholzheu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:01:01 by tholzheu          #+#    #+#             */
-/*   Updated: 2019/01/31 12:06:17 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/02/01 15:48:04 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	print_memory(char memory[MEM_SIZE])
 
 	addr = 0;
 	printf("0x");
+	printf("%x\n", memory[0]);
 	while (addr < MEM_SIZE)
 	{
 		if (addr % 64 == 0)

@@ -6,7 +6,7 @@
 #    By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/15 19:22:08 by jdiaz             #+#    #+#              #
-#    Updated: 2019/01/31 15:08:16 by jcruz-y-         ###   ########.fr        #
+#    Updated: 2019/02/01 15:24:55 by jcruz-y-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,12 @@ LIBFT_PATH = ../libft/
 FLAGS = -Wall -Werror -Wextra
 INC = -I ./includes/ -I ./$(LIBFT_PATH)
 
-VM_SRC = srcs/errorh.c srcs/flags.c srcs/init_objs.c \
-srcs/players_utils.c srcs/players.c srcs/vm.c srcs/arena.c
+VM_SRC	= srcs/errorh.c srcs/flags.c srcs/init_objs.c \
+		  srcs/players_utils.c srcs/players.c srcs/vm.c srcs/arena.c \
+		  srcs/print_memory.c
 		  
-VM_OBJ =  vm.o errorh.o flags.o init_objs.o players_utils.o players.o arena.o
+VM_OBJ =  vm.o errorh.o flags.o init_objs.o players_utils.o players.o arena.o \
+		  print_memory.o
 
 all: $(NAME)
 

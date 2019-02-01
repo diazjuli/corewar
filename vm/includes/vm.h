@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 14:56:52 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/02/01 14:58:28 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/02/01 15:25:29 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ void			init_arena_ob(t_arena *arena, int argc, char **argv);
 t_player		*add_player(t_player **head);
 t_player		*create_player();
 int				init_arena(t_arena *arena, t_player **player);
+void			print_memory(char memory[MEM_SIZE]);
 
 #endif

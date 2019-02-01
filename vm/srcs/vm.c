@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:58:22 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/02/01 14:37:30 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2019/02/01 15:25:59 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int		main(int argc, char **argv)
 	fplayer->first = 1;
 	if (init_state(&arena, &fplayer) == -1)
 		return (-1);
+	print_memory(arena.memory);
 	return (0);
 }
