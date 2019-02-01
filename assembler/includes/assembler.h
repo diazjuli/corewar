@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 19:15:46 by jdiaz             #+#    #+#             */
-/*   Updated: 2019/01/26 19:08:15 by tholzheu         ###   ########.fr       */
+/*   Updated: 2019/01/30 15:52:56 by jcruz-y-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define ASSEMBLER_H
 
 #include "op.h"
-#include "libft.h"
+#include "../../libft/libft.h"
 #include <stdio.h>
 
 typedef struct			s_op

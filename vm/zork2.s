@@ -1,4 +1,4 @@
-.name "zork"
+.name "zork2"
 .comment "I'm ALIIIIVE"
 
 		ld   %0,r3
