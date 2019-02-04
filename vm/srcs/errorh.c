@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 20:39:45 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/02/01 14:40:34 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2019/02/02 16:06:41 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ MAX_PLAYERS, arena->num_plys);
 		ft_printf("%s", OPTIONS);
 	else if (errnum == 8)
 		ft_printf("invalid -dump, format is: -dump [num cycles till dump]\n");
+	else if (errnum == 9)
+		ft_printf("player number '%d' previously assigned\n", fplayer->pnum); // added
 	return (-1);
 }

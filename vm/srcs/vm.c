@@ -6,20 +6,21 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 19:58:22 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/02/01 15:25:59 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:28:20 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-int		get_args(t_arena *arena, t_player **fplayer)
+static int		get_args(t_arena *arena, t_player **fplayer)
 {
 	int i;
 
 	i = 1;
 	while (arena->argv[i])
 	{
-		if (get_flags(arena, &i, *fplayer) == -1 &&
+		/*if (get_flags(arena, &i, *fplayer) == -1 &&*/
+		if (get_flags(arena, &i) == -1 && // added
 		get_player(arena, fplayer, &i) == -1)
 			return (-1);
 		else
@@ -28,7 +29,7 @@ int		get_args(t_arena *arena, t_player **fplayer)
 	return (1);
 }
 
-int		init_state(t_arena *arena, t_player **fplayer)
+static int		init_state(t_arena *arena, t_player **fplayer)
 {
 	if (arena->argc == 1)
 		return (print_error(7, *fplayer, arena));
@@ -47,10 +48,11 @@ int		main(int argc, char **argv)
 	t_player	*fplayer;
 
 	init_arena_ob(&arena, argc, argv);
-	fplayer = create_player();
-	fplayer->first = 1;
+	/*fplayer = create_player();*/
+	fplayer = NULL; // added
+	/*fplayer->first = 1;*/
 	if (init_state(&arena, &fplayer) == -1)
 		return (-1);
-	print_memory(arena.memory);
+	loop(fplayer, &arena);
 	return (0);
 }
