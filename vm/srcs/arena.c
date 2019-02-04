@@ -6,13 +6,13 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 13:48:07 by jcruz-y-          #+#    #+#             */
-/*   Updated: 2019/02/01 14:41:10 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2019/02/02 09:45:22 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-int		write_player(t_arena *arena, t_player *elem)
+static int		write_player(t_arena *arena, t_player *elem)
 {
 	int		i;
 	int		pc_counter;
@@ -28,20 +28,17 @@ int		write_player(t_arena *arena, t_player *elem)
 	return (1);
 }
 
-int		get_numplys(t_arena *arena, t_player **fplayer)
+static int		get_numplys(t_arena *arena, t_player **fplayer)
 {
 	int			num;
 	t_player	*elem;
 
 	num = 0;
 	elem = *fplayer;
-	if (elem)
+	while (elem)
 	{
-		while (elem)
-		{
-			elem = elem->next;
-			num++;
-		}
+		elem = elem->next;
+		num++;
 	}
 	ft_printf("num %d\n", num);
 	arena->num_plys = num;

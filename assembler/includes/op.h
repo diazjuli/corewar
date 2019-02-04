@@ -6,7 +6,7 @@
 /*   By: jcruz-y- <jcruz-y-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/31 13:05:23 by jcruz-y-         ###   ########.fr       */
+/*   Updated: 2019/02/02 09:03:36 by tholzheu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef char	t_arg_type;
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
-//# define COREWAR_EXEC_MAGIC		0xf383ea00
 # define PROG_MAX_SIZE			(COMMENT_LENGTH + PROG_NAME_LENGTH + 17 + CHAMP_MAX_SIZE)
 
 typedef struct		header_s
